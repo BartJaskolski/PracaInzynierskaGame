@@ -26,7 +26,7 @@ namespace GameRunningCube.Source.GameEngine
 
         private bool IfTwoObjectsColiding(Enemy objects2D, Player player)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool IfObjectOutOfBoardGame(Objects2D obj)
@@ -39,6 +39,9 @@ namespace GameRunningCube.Source.GameEngine
 
             if ((obj.Position.Y + obj.Size.Y / 2) > 600)
                 obj.Position = new Vector2(obj.Position.X, (600 - obj.Size.Y / 2));
+
+            if ((obj.Position.Y - obj.Size.Y / 2) < 0)
+                obj.Position = new Vector2(obj.Position.X, (0 + obj.Size.Y / 2));
 
             return true;
         }

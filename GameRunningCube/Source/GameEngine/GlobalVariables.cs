@@ -18,5 +18,6 @@ namespace GameRunningCube
         public static ObjectGenerator ObjectGenerator;
 
         public static Random Random;
+        public static SpriteFont SpriteFont;
     }
 }

@@ -30,6 +30,7 @@ namespace GameRunningCube
         public Point Size { get; set; }
         public Point Location { get; set; }
         public Texture2D Texture2D { get; set; }
+        public int Speed { get; set; } = 0;
 
         public Objects2D()
         {

@@ -21,6 +21,7 @@ namespace GameRunningCube
         {
             GlobalVariables.Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            GlobalVariables.Random = new Random(10);
         }
 
         /// <summary>
@@ -47,8 +48,10 @@ namespace GameRunningCube
             GlobalVariables.SpriteBatch = new SpriteBatch(GraphicsDevice);
             GlobalVariables.KeyboardController = new KeyboardController();
             GlobalVariables.ObjectGenerator = new ObjectGenerator();
-            GlobalVariables.Random = new Random(10);
-            
+
+
+            GlobalVariables.SpriteFont = Content.Load<SpriteFont>("FontArial");
+
             Board = new GameBoard();
             Object2DEngine = new Object2DEngine();
         }
