@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRunningCube", "GameRunningCube\GameRunningCube.csproj", "{F7AE60CC-2439-4032-812B-865CBD4A94DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Debug|x86.ActiveCfg = Debug|x86
+		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Debug|x86.Build.0 = Debug|x86
+		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Release|x86.ActiveCfg = Release|x86
+		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DBD6CDBF-730C-4293-A0B8-041BDBC92B21}
+	EndGlobalSection
+EndGlobal
