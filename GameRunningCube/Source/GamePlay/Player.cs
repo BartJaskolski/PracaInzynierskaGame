@@ -6,6 +6,8 @@ namespace GameRunningCube.Source.GamePlay
     public class Player : Objects2D
     {
         public int Score { get; set; } = 0;
+        public bool IsColidedX { get; set; }
+        public bool IsColidedY { get; set; }
         public Player(Vector2 position, Vector2 dimention, string path) : base(position, dimention, path)
         {
         }

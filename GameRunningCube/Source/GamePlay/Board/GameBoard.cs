@@ -23,7 +23,6 @@ namespace GameRunningCube
 
             foreach (var enemy in Enemies)
                 enemy.Draw();
-
         }
 
         public virtual void Update()
@@ -48,7 +47,10 @@ namespace GameRunningCube
             Player = new Player(new Vector2(300, 600), new Vector2(30, 30), "2D\\Player");
             ScoreSprite = new ScoreSprite(Player);
             Enemies = new List<Enemy>();
-            Enemies.Add(GlobalVariables.ObjectGenerator.GenerateRandomObject<Enemy>("2D\\Enemy"));
+            for (int i = 0; i < 10; i++)
+            {
+                Enemies.Add(GlobalVariables.ObjectGenerator.GenerateRandomObject<Enemy>("2D\\Enemy"));
+            }
         }
     }
 }

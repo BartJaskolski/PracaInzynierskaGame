@@ -1,7 +1,6 @@
 ﻿using System;
 using GameRunningCube.Source.GameEngine;
 using GameRunningCube.Source.GameEngine.Input;
-using GameRunningCube.Source.GamePlay.Board;
 using GameRunningCube.Source.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -99,7 +98,6 @@ namespace GameRunningCube
             
             GlobalVariables.SpriteBatch.End();
             
-
             base.Draw(gameTime);
         }
 
