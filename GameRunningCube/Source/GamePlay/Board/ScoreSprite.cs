@@ -27,6 +27,8 @@ namespace GameRunningCube
 
             if(PlayerObj.IsColidedY)
                 GlobalVariables.SpriteBatch.DrawString(GlobalVariables.SpriteFont, "kolizja z osia Y", new Vector2(100, 10), Color.Red);
+            if (PlayerObj.IsColidedX)
+                GlobalVariables.SpriteBatch.DrawString(GlobalVariables.SpriteFont, "kolizja z osia X", new Vector2(100, 30), Color.Red);
 
         }
 
