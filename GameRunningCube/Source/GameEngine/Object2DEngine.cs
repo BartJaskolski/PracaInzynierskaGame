@@ -20,7 +20,6 @@ namespace GameRunningCube.Source.GameEngine
                 if (IfTwoObjectsColiding(objects2D, boardPlayer))
                     return true;
             }
-
             return false;
         }
 
