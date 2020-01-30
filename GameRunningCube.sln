@@ -5,16 +5,31 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRunningCube", "GameRunningCube\GameRunningCube.csproj", "{F7AE60CC-2439-4032-812B-865CBD4A94DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{C7563E99-833A-486F-B892-A284F109182A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Debug|Any CPU.Build.0 = Debug|x86
 		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Debug|x86.ActiveCfg = Debug|x86
 		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Debug|x86.Build.0 = Debug|x86
+		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Release|Any CPU.ActiveCfg = Release|x86
 		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Release|x86.ActiveCfg = Release|x86
 		{F7AE60CC-2439-4032-812B-865CBD4A94DB}.Release|x86.Build.0 = Release|x86
+		{C7563E99-833A-486F-B892-A284F109182A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7563E99-833A-486F-B892-A284F109182A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7563E99-833A-486F-B892-A284F109182A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C7563E99-833A-486F-B892-A284F109182A}.Debug|x86.Build.0 = Debug|Any CPU
+		{C7563E99-833A-486F-B892-A284F109182A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7563E99-833A-486F-B892-A284F109182A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7563E99-833A-486F-B892-A284F109182A}.Release|x86.ActiveCfg = Release|Any CPU
+		{C7563E99-833A-486F-B892-A284F109182A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

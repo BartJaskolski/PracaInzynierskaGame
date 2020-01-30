@@ -18,6 +18,16 @@ namespace GameRunningCube
 
         public MainGame()
         {
+            SetDefaultVariables();
+        }
+
+        public MainGame(GameSettings gameSettings) 
+        {
+            SetDefaultVariables();
+        }
+
+        private void SetDefaultVariables()
+        {
             GlobalVariables.Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             GlobalVariables.Random = new Random(10);
@@ -47,7 +57,6 @@ namespace GameRunningCube
             GlobalVariables.SpriteBatch = new SpriteBatch(GraphicsDevice);
             GlobalVariables.KeyboardController = new KeyboardController();
             GlobalVariables.ObjectGenerator = new ObjectGenerator();
-
 
             GlobalVariables.SpriteFont = Content.Load<SpriteFont>("FontArial");
 
