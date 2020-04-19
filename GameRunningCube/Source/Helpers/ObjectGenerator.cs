@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameRunningCube.Source.GamePlay.Board;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameRunningCube.Source.Helpers
@@ -15,6 +16,20 @@ namespace GameRunningCube.Source.Helpers
                 Dimention = dim, Position = pos, Texture2D = GlobalVariables.Content.Load<Texture2D>(path)
             };
 
+            return obj;
+        }
+
+        public T ConvertDbToObj<T>(EnemyDB enemyDb) where T : Objects2D, new()
+        {
+            var dim = new Vector2(enemyDb.Width, enemyDb.Height);
+            var pos = new Vector2(enemyDb.PosX, enemyDb.PosY);
+
+            var obj = new T
+            {
+                Dimention = dim,
+                Position = pos,
+                Texture2D = GlobalVariables.Content.Load<Texture2D>("2D\\Enemy")
+            };
 
             return obj;
         }

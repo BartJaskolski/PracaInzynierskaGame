@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameRunningCube
 {
-    class GlobalVariables
+    public class GlobalVariables
     {
         public static GraphicsDeviceManager Graphics;
         public static ContentManager Content;

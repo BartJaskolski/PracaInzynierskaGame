@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main.Views"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Configuration" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <Label  Grid.Column ="3" Grid.Row="1" Content="Generate and Save Enemies to DB"></Label>
+        <Button x:Name="btn_generuj" Grid.Column ="3" Grid.Row="2" Click="btn_generuj_Click">Generate</Button>
+        <Label x:Name="l_success"  Grid.Column ="3" Grid.Row="3" Content=""></Label>
+
+        <Label  Grid.Column ="1" Grid.Row="1" Content="Parameters"></Label>
+        <TextBox Grid.Column ="1" Grid.Row="2"></TextBox>
     </Grid>
+
 </Window>

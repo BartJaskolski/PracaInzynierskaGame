@@ -26,6 +26,7 @@ namespace Main
         public GameSettings GameSettings { get; set; }
         public MainWindow()
         {
+            GlobalVariables.Random = new Random(10);
             InitializeComponent();
             GameSettings = new GameSettings();
         }
