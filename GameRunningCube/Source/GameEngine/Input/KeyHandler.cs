@@ -18,7 +18,6 @@
             state = 2;
         }
 
-
         public void MakePrint(string KEY)
         {
             display = KEY;
@@ -60,7 +59,6 @@
             {
                 tempStr = KEY.Substring(6);
             }
-
 
             print = tempStr;
         }

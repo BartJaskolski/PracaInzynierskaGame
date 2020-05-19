@@ -49,19 +49,18 @@ namespace GameRunningCube
         {
             Player = new Player(new Vector2(300, 600), new Vector2(30, 30), "2D\\Player");
             ScoreSprite = new ScoreSprite(Player);
-            Enemies = GetEnemiesFromDB();
+            Enemies = GetEnemiesFromDb();
             //Enemies = new List<Enemy>();
             //for (int i = 0; i < 10; i++)
             //{
             //    Enemies.Add(GlobalVariables.ObjectGenerator.GenerateRandomObject<Enemy>("2D\\Enemy"));
-            //}
+            //} 
         }
 
-        private List<Enemy> GetEnemiesFromDB()
+        private List<Enemy> GetEnemiesFromDb()
         {
-            List<EnemyDB> enemyData = new List<EnemyDB>();
             DbContextRunningCube dbContext = new DbContextRunningCube();
-            enemyData = dbContext.EnemiesData.ToList();
+            List<EnemyDB> enemyData = dbContext.EnemiesData.ToList();
             
             return MapDbToObj(enemyData);
         }

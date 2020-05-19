@@ -23,8 +23,9 @@ namespace GameRunningCube
         public override void Draw()
         {
             GlobalVariables.SpriteBatch.DrawString(GlobalVariables.SpriteFont, score.ToString(), new Vector2(10, 10), Color.Black);
+            GlobalVariables.SpriteBatch.DrawString(GlobalVariables.SpriteFont, PlayerObj.MovesCount.ToString(), new Vector2(10, 30), Color.Black);
 
-            if(PlayerObj.IsColidedY)
+            if (PlayerObj.IsColidedY)
                 GlobalVariables.SpriteBatch.DrawString(GlobalVariables.SpriteFont, "kolizja z osia Y", new Vector2(100, 10), Color.Red);
             if (PlayerObj.IsColidedX)
                 GlobalVariables.SpriteBatch.DrawString(GlobalVariables.SpriteFont, "kolizja z osia X", new Vector2(100, 30), Color.Red);

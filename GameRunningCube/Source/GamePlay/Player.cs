@@ -8,6 +8,7 @@ namespace GameRunningCube.Source.GamePlay
         public int Score { get; set; } = 0;
         public bool IsColidedX { get; set; }
         public bool IsColidedY { get; set; }
+        public int MovesCount { get; set; }
         public Player(Vector2 position, Vector2 dimention, string path) : base(position, dimention, path)
         {
         }
@@ -25,28 +26,30 @@ namespace GameRunningCube.Source.GamePlay
             {
                 Position = new Vector2(Position.X - 1, Position.Y);
                 Score -= 3;
+                MovesCount++;
             }
 
             if (GlobalVariables.KeyboardController.GetPress("S"))
             {
                 Position = new Vector2(Position.X, Position.Y + 1);
                 Score -= 10;
+                MovesCount++;
             }
 
             if (GlobalVariables.KeyboardController.GetPress("D"))
             {
                 Position = new Vector2(Position.X + 1, Position.Y);
                 Score -= 3;
+                MovesCount++;
             }
 
             if (GlobalVariables.KeyboardController.GetPress("W"))
             {
                 Score += 10;
                 Position = new Vector2(Position.X, Position.Y - 1);
+                MovesCount++;
             }
-
         }
-    
 
         public override void Draw()
         {
