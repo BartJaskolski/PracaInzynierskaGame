@@ -121,6 +121,10 @@
       <Project>{f7ae60cc-2439-4032-812b-865cbd4a94db}</Project>
       <Name>GameRunningCube</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HelpersGRC\HelpersGRC.csproj">
+      <Project>{DC97CEAD-C885-4749-AE81-542FAECB314F}</Project>
+      <Name>HelpersGRC</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

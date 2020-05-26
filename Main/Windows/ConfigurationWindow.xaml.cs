@@ -16,6 +16,7 @@ using GameRunningCube;
 using GameRunningCube.DbContext;
 using GameRunningCube.Source.GameEngine;
 using GameRunningCube.Source.GamePlay.Board;
+using HelpersGRC;
 
 namespace Main.Views
 {
@@ -27,10 +28,12 @@ namespace Main.Views
         public ConfigurationWindow()
         {
             InitializeComponent();
+            NumberGenerator = new RandomNumber();
         }
 
         public List<EnemyDB> Enemies { get; set; }
         public GameSettings GameSetting { get; set; }
+        public RandomNumber NumberGenerator;
 
         private void btn_generuj_Click(object sender, RoutedEventArgs e)
         {
@@ -45,6 +48,17 @@ namespace Main.Views
                 db.EnemiesData.AddRange(Enemies);
                 db.SaveChanges();
             }
+        }
+
+        private void btn_gen_pop_Click(object sender, RoutedEventArgs e)
+        {
+            var population = new PopulationGeneratior();
+            var GeneratedPopulation = population.GeneratedPopulation;
+
+            
+            lb_pop_gen.Content += "Generated members: "+ GeneratedPopulation.Count()+"/r";
+
+            lb_pop_gen.Content += "Generated!";
         }
     }
 }

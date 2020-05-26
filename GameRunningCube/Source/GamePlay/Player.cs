@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameRunningCube.Source.GamePlay
@@ -9,8 +10,15 @@ namespace GameRunningCube.Source.GamePlay
         public bool IsColidedX { get; set; }
         public bool IsColidedY { get; set; }
         public int MovesCount { get; set; }
+        public List<int> AiMoves { get; set; }
+
         public Player(Vector2 position, Vector2 dimention, string path) : base(position, dimention, path)
         {
+        }
+
+        public Player()
+        {
+            
         }
 
         public override void Update()
