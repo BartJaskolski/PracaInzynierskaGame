@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GameRunningCube.DbContext;
+using GameRunningCube.DbContext.Entities;
 using GameRunningCube.Source.GamePlay;
-using GameRunningCube.Source.GamePlay.Board;
-using GameRunningCube.Source.Helpers;
 using Microsoft.Xna.Framework;
 
 namespace GameRunningCube

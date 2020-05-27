@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
-using GameRunningCube.Source.GamePlay.Board;
+using GameRunningCube.DbContext.Entities;
+using GameRunningCube.Source.GamePlay;
 
 namespace GameRunningCube.DbContext
 {
@@ -15,5 +16,11 @@ namespace GameRunningCube.DbContext
             get;
             set;
         }
+
+        //public DbSet<PopulationDB> PopulationData
+        //{
+        //    get;
+        //    set;
+        //}
     }
 }

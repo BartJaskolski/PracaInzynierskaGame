@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using GameRunningCube.Source.GamePlay;
-using GameRunningCube.Source.GamePlay.Board;
 using Microsoft.Xna.Framework;
 
 namespace GameRunningCube.Source.GameEngine

@@ -1,4 +1,4 @@
-﻿using GameRunningCube.Source.GamePlay.Board;
+﻿using GameRunningCube.DbContext.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

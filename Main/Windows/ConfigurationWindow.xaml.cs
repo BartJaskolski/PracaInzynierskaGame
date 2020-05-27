@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using GameRunningCube;
 using GameRunningCube.DbContext;
+using GameRunningCube.DbContext.Entities;
 using GameRunningCube.Source.GameEngine;
-using GameRunningCube.Source.GamePlay.Board;
 using HelpersGRC;
 
 namespace Main.Views
@@ -52,7 +41,7 @@ namespace Main.Views
 
         private void btn_gen_pop_Click(object sender, RoutedEventArgs e)
         {
-            var population = new PopulationGeneratior();
+            var population = new PopulationGenerator();
             var GeneratedPopulation = population.GeneratedPopulation;
 
             

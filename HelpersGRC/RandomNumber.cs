@@ -31,12 +31,12 @@ namespace HelpersGRC
         }
     }
 
-    public class PopulationGeneratior 
+    public class PopulationGenerator 
     {
         public List<Player> GeneratedPopulation { get; set; }
         private RandomNumber NumberGenerator { get; set; }
 
-        public PopulationGeneratior()
+        public PopulationGenerator()
         {
             NumberGenerator = new RandomNumber();
             GeneratedPopulation = GeneratePopulation();
