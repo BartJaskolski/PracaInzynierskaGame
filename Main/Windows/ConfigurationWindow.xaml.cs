@@ -5,6 +5,7 @@ using GameRunningCube;
 using GameRunningCube.DbContext;
 using GameRunningCube.DbContext.Entities;
 using GameRunningCube.Source.GameEngine;
+using GameRunningCube.Source.GamePlay;
 using HelpersGRC;
 
 namespace Main.Views
@@ -41,13 +42,37 @@ namespace Main.Views
 
         private void btn_gen_pop_Click(object sender, RoutedEventArgs e)
         {
-            var population = new PopulationGenerator();
-            var GeneratedPopulation = population.GeneratedPopulation;
+            using (var db = new DbContextRunningCube())
+            {
+                if (!db.PopulationData.Any())
+                {
+                    db.PopulationData.AddRange(
+                        MapPlayersToPopulation(
+                            new PopulationGenerator().GeneratedPopulation));
+                    db.SaveChanges();
 
+                    lb_pop_gen.Content = "Generated!";
+                }
+                else
+                {
+                    lb_pop_gen.Content = "Population 0 is already generated!";
+                }
+            }
             
-            lb_pop_gen.Content += "Generated members: "+ GeneratedPopulation.Count()+"/r";
+            //lb_pop_gen.Content += "Generated members: "+ GeneratedPopulation.Count()+"/r";
+        }
 
-            lb_pop_gen.Content += "Generated!";
+        private IEnumerable<PopulationDB> MapPlayersToPopulation(List<Player> generatedPopulation)
+        {
+            var puplationMapped = new List<PopulationDB>();
+
+            foreach (var player in generatedPopulation)
+            {
+                var moves = string.Join(string.Empty, player.AiMoves);
+                puplationMapped.Add(new PopulationDB(moves, 0));
+            }
+
+            return puplationMapped;
         }
     }
 }

@@ -17,10 +17,10 @@ namespace GameRunningCube.DbContext
             set;
         }
 
-        //public DbSet<PopulationDB> PopulationData
-        //{
-        //    get;
-        //    set;
-        //}
+        public DbSet<PopulationDB> PopulationData
+        {
+            get;
+            set;
+        }
     }
 }
