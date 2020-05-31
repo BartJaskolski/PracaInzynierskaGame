@@ -8,7 +8,8 @@ namespace GameRunningCube.Source.GameEngine
     {
         public void Update(GameBoard board)
         {
-            IfObjectOutOfBoardGame(board.Player);
+           board.Player.Lost = 
+               IfObjectOutOfBoardGame(board.Player) &&
             IfObjectsColiding(board.Player, board.Enemies);
         }
 

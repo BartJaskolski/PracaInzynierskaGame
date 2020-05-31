@@ -68,6 +68,7 @@
     <Compile Include="Source\GameEngine\Input\KeyHandler.cs" />
     <Compile Include="Source\GameEngine\Objects2D.cs" />
     <Compile Include="Source\GamePlay\Player.cs" />
+    <Compile Include="Source\GeneticAlgorithm\Population.cs" />
     <Compile Include="Source\Helpers\ObjectGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +103,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Source\GeneticAlgori\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005271803409_Initial.resx">
       <DependentUpon>202005271803409_Initial.cs</DependentUpon>

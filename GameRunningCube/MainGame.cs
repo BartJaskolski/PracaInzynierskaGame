@@ -83,14 +83,17 @@ namespace GameRunningCube
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            GlobalVariables.KeyboardController.Update();
 
-            Object2DEngine.Update(Board);
-            Board.Update();
+            if (!Board.StopGame)
+            { 
+                GlobalVariables.KeyboardController.Update();
 
-            GlobalVariables.KeyboardController.UpdateOld();
+                Object2DEngine.Update(Board);
+                Board.Update();
+                GlobalVariables.KeyboardController.UpdateOld();
 
-            base.Update(gameTime);
+                base.Update(gameTime);
+            }
         }
 
         /// <summary>

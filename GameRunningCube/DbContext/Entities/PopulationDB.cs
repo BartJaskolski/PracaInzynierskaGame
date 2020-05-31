@@ -16,5 +16,10 @@ namespace GameRunningCube.DbContext.Entities
             Score = score;
             GenerationNumber = generationNumber;
         }
+
+        public PopulationDB()
+        {
+            
+        }
     }
 }

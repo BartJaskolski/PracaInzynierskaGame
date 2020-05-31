@@ -11,6 +11,9 @@ namespace GameRunningCube.Source.GamePlay
         public bool IsColidedY { get; set; }
         public int MovesCount { get; set; }
         public List<int> AiMoves { get; set; }
+        public bool LoadedAiData { get; set; } = false;
+        public int AiCounter { get; set; } = 0;
+        public bool Lost { get; set; }
 
         public Player(Vector2 position, Vector2 dimention, string path) : base(position, dimention, path)
         {
@@ -23,13 +26,48 @@ namespace GameRunningCube.Source.GamePlay
 
         public override void Update()
         {
-            MovePlayer();
+            if (LoadedAiData)
+                MoveAiPlayer();
+            else
+            {
+                MovePlayer();
+
+            }
 
             base.Update();
         }
 
+        private void MoveAiPlayer()
+        {
+            int move = AiMoves[AiCounter];
+            AiCounter++;
+            
+            //prawo
+            if (move == 3)
+            {
+                Position = new Vector2(Position.X + 1, Position.Y);
+                Score -= 3;
+                MovesCount++;
+            }
+            //gora
+            if (move == 2)
+            {
+                Score += 10;
+                Position = new Vector2(Position.X, Position.Y - 1);
+                MovesCount++;
+            }
+            // lewo
+            if (move == 1)
+            {
+                Position = new Vector2(Position.X - 1, Position.Y);
+                Score -= 3;
+                MovesCount++;
+            }
+        }
+
         private void MovePlayer()
         {
+
             if (GlobalVariables.KeyboardController.GetPress("A"))
             {
                 Position = new Vector2(Position.X - 1, Position.Y);
