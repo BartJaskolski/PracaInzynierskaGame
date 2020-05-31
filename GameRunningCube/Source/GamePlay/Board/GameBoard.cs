@@ -17,6 +17,7 @@ namespace GameRunningCube
         public ScoreSprite ScoreSprite { get; set; }
         public List<Population> Population { get; set; }
         public Population CurrentPopulation { get; set; }
+        public int MaxPopGenerationNumber { get; set; }
         public bool StopGame { get; set; }
         public bool AllPopulationAfterGame => Population.All(x => x.AfterGame != false);
 
@@ -56,6 +57,9 @@ namespace GameRunningCube
                     }
                     else
                     {
+                        SelectionFromCurrentGeneration(Population.Count);
+                        CrossOverPopulation();
+                        MutatePopulation();
                         
                     }
 
@@ -73,6 +77,34 @@ namespace GameRunningCube
 
             foreach (var enemy in Enemies)
                 enemy.Update();
+        }
+
+        private void MutatePopulation()
+        {
+        }
+
+        private void CrossOverPopulation()
+        {
+        }
+
+        private void SelectionFromCurrentGeneration(int count)
+        {
+            var population = GetPopulationFromDb();
+            MaxPopGenerationNumber++;
+            Population.Clear();
+
+            for (int i = 0; i < count; i++)
+            {
+                var firstPlayer = GlobalVariables.Random.Next(0, population.Count-1);
+                var secondPlayer = GlobalVariables.Random.Next(0, population.Count-1);
+
+                if (population[firstPlayer].Score > population[secondPlayer].Score)
+                    Population.Add(MapPopDbToPop(population[firstPlayer]));
+                else
+                    Population.Add(MapPopDbToPop(population[secondPlayer]));
+
+            }
+            
         }
 
         private bool CheckIfStopAlgorithm()
@@ -134,12 +166,18 @@ namespace GameRunningCube
             return populations;
         }
 
+        private Population MapPopDbToPop(PopulationDB pop)
+        {
+            return new Population(pop.IdObject, pop.AiMoves,  0, MaxPopGenerationNumber);
+        }
+
         private List<PopulationDB> GetPopulationFromDb()
         {
             List < PopulationDB > pop = new List<PopulationDB>();
             using (var dbContext = new DbContextRunningCube())
             {
-                pop = dbContext.PopulationData.ToList();
+                MaxPopGenerationNumber = dbContext.PopulationData.Max(x=>x.GenerationNumber);
+                pop = dbContext.PopulationData.Where(x => x.GenerationNumber == MaxPopGenerationNumber).ToList();
                 return pop;
             }
         }
