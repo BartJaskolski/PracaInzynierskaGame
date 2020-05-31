@@ -80,10 +80,16 @@ namespace GameRunningCube
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad0))
+                Board.StopGame = false;
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad1))
+                Board.StopGame = true;
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 200.0f);
+            //TargetElapsedTime ?? change frequency of update 
             if (!Board.StopGame)
             { 
                 GlobalVariables.KeyboardController.Update();

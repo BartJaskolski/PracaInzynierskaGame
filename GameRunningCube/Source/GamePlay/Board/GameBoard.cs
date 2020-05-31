@@ -41,16 +41,28 @@ namespace GameRunningCube
 
             if (Player.AiCounter == 1200 || Player.Lost)
             {
-                Population.FirstOrDefault(x => x.IdObject == CurrentPopulation.IdObject).AfterGame =true;
-                //StopGame = true;
-                //UpdateScore();
+                Population.FirstOrDefault(x => x.IdObject == CurrentPopulation.IdObject).AfterGame = true;
+                UpdateScoreForCurrentPopulation();
+
                 if(!AllPopulationAfterGame)
                     GetNextPopulation();
                 else
                 {
 
+                    //sprawdzenie czy dana populacja osiągneła cel.
+                    if (CheckIfStopAlgorithm())
+                    {
+                        StopGame = true;
+                    }
+                    else
+                    {
+                        //
+                    }
+
+                    //Populacja sprawdzona 
+                    //Operacje Krzyżownia i mutacji
+                    // utworzenie nowej populacji
                 }
-                
             }
 
             if (CurrentPopulation != null && !Player.LoadedAiData )
@@ -63,9 +75,19 @@ namespace GameRunningCube
                 enemy.Update();
         }
 
-        private void UpdateScore()
+        private bool CheckIfStopAlgorithm()
         {
-            throw new NotImplementedException();
+            return false;
+        }
+
+        private void UpdateScoreForCurrentPopulation()
+        {
+            using (var dbContext = new DbContextRunningCube())
+            {
+                var population = dbContext.PopulationData.FirstOrDefault(x => x.IdObject == CurrentPopulation.IdObject);
+                population.Score = ScoreSprite.score;
+                dbContext.SaveChanges();
+            }
         }
 
         private void LoadAiData(Player player)
