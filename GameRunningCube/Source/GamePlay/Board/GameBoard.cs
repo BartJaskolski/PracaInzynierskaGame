@@ -56,7 +56,7 @@ namespace GameRunningCube
                     }
                     else
                     {
-                        //
+                        
                     }
 
                     //Populacja sprawdzona 
