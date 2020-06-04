@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameRunningCube.DbContext.Entities;
 
 namespace GameRunningCube.Source.GeneticAlgorithm
 {
@@ -12,6 +13,10 @@ namespace GameRunningCube.Source.GeneticAlgorithm
         public int GenerationNumber { get; set; }
         public bool AfterGame { get; set; }
 
+        public Population()
+        {
+                
+        }
         public Population(int idObj, string aiMoves, int score, int generationNumber)
         {
             IdObject = idObj;

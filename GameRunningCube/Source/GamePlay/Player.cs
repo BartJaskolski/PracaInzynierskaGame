@@ -17,6 +17,8 @@ namespace GameRunningCube.Source.GamePlay
 
         public Player(Vector2 position, Vector2 dimention, string path) : base(position, dimention, path)
         {
+            AiCounter = 0;
+            LoadedAiData = false;
         }
 
         public Player()

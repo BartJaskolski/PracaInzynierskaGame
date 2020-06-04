@@ -60,7 +60,7 @@ namespace GameRunningCube
                         SelectionFromCurrentGeneration(Population.Count);
                         CrossOverPopulation();
                         MutatePopulation();
-                        
+                        GetNextPopulation();
                     }
 
                     //Populacja sprawdzona 
@@ -92,6 +92,7 @@ namespace GameRunningCube
             var population = GetPopulationFromDb();
             MaxPopGenerationNumber++;
             Population.Clear();
+            int maxIdObject = PopulationDB.GetMaxIdObject() +1;
 
             for (int i = 0; i < count; i++)
             {
@@ -99,13 +100,36 @@ namespace GameRunningCube
                 var secondPlayer = GlobalVariables.Random.Next(0, population.Count-1);
 
                 if (population[firstPlayer].Score > population[secondPlayer].Score)
+                {
+                    population[firstPlayer].IdObject = maxIdObject;
                     Population.Add(MapPopDbToPop(population[firstPlayer]));
-                else
-                    Population.Add(MapPopDbToPop(population[secondPlayer]));
 
+                }
+                else
+                {
+                    population[firstPlayer].IdObject = maxIdObject;
+                    Population.Add(MapPopDbToPop(population[secondPlayer]));
+                }
+
+                maxIdObject++;
             }
-            
+
+            Population.ForEach(x => x.AfterGame = false);
+            MapEntirePopToPopDb(Population);
         }
+
+        private void MapEntirePopToPopDb(List<Population> population)
+        {
+            using (var dbContext = new DbContextRunningCube())
+            {
+                foreach (var pop in population)
+                {
+                    dbContext.PopulationData.Add(new PopulationDB(pop));
+                }
+                dbContext.SaveChanges();
+            }
+        }
+
 
         private bool CheckIfStopAlgorithm()
         {
@@ -138,7 +162,7 @@ namespace GameRunningCube
             Player = new Player(new Vector2(300, 600), new Vector2(30, 30), "2D\\Player");
             ScoreSprite = new ScoreSprite(Player);
             Enemies = GetEnemiesFromDb();
-            Population = MapPopDbToPop(GetPopulationFromDb());
+            Population = MapEntirePopDbToPop(GetPopulationFromDb());
             CurrentPopulation = Population.First(x => x.AfterGame == false);
             //Enemies = new List<Enemy>();
             //for (int i = 0; i < 10; i++)
@@ -155,7 +179,7 @@ namespace GameRunningCube
             CurrentPopulation = Population.First(x => x.AfterGame == false);
         }
 
-        private List<Population> MapPopDbToPop(List<PopulationDB> getPopulationFromDb)
+        private List<Population> MapEntirePopDbToPop(List<PopulationDB> getPopulationFromDb)
         {
             List<Population> populations = new List<Population>();
             foreach (var population in getPopulationFromDb)
@@ -168,7 +192,7 @@ namespace GameRunningCube
 
         private Population MapPopDbToPop(PopulationDB pop)
         {
-            return new Population(pop.IdObject, pop.AiMoves,  0, MaxPopGenerationNumber);
+            return new Population(pop.IdObject,pop.AiMoves,  0, MaxPopGenerationNumber);
         }
 
         private List<PopulationDB> GetPopulationFromDb()
