@@ -18,7 +18,7 @@ namespace HelpersGRC
         private List<Player> GeneratePopulation()
         {
             List<Player> populationPlayer = new List<Player>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 20; i++)
             {
                 var player = new Player();
                 player.AiMoves = NumberGenerator.GenerateMovesForPlayer();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
+using System.Text;
 using GameRunningCube.DbContext;
 using GameRunningCube.DbContext.Entities;
 using GameRunningCube.Source.GamePlay;
@@ -20,6 +21,7 @@ namespace GameRunningCube
         public int MaxPopGenerationNumber { get; set; }
         public bool StopGame { get; set; }
         public bool AllPopulationAfterGame => Population.All(x => x.AfterGame != false);
+        public int MaxIdObject { get; set; }
 
         public GameBoard()
         {
@@ -42,7 +44,7 @@ namespace GameRunningCube
 
             if (Player.AiCounter == 1200 || Player.Lost)
             {
-                Population.FirstOrDefault(x => x.IdObject == CurrentPopulation.IdObject).AfterGame = true;
+                Population.FirstOrDefault(x => !CurrentPopulation.AfterGame  && x.IdObject == CurrentPopulation.IdObject).AfterGame = true;
                 UpdateScoreForCurrentPopulation();
 
                 if(!AllPopulationAfterGame)
@@ -57,12 +59,13 @@ namespace GameRunningCube
                     }
                     else
                     {
-                        SelectionFromCurrentGeneration(Population.Count);
-                        CrossOverPopulation();
+                        int numberOfParents = Population.Count / 2;
+                        int numberOfChildren = Population.Count - numberOfParents;
+                        var population= SelectionFromCurrentGeneration(numberOfParents);
+                        CrossOverPopulation(numberOfChildren, population);
                         MutatePopulation();
                         GetNextPopulation();
                     }
-
                     //Populacja sprawdzona 
                     //Operacje Krzyżownia i mutacji
                     // utworzenie nowej populacji
@@ -81,18 +84,53 @@ namespace GameRunningCube
 
         private void MutatePopulation()
         {
+            //to implement
         }
 
-        private void CrossOverPopulation()
-        {
-        }
-
-        private void SelectionFromCurrentGeneration(int count)
+        private void CrossOverPopulation(int numberOfCrossOver, List<Population> pop)
         {
             var population = GetPopulationFromDb();
+            
+            for (int i = 0; i < numberOfCrossOver;i++)
+            {
+                var firstParent = GlobalVariables.Random.Next(0, population.Count - 1);
+                var secondParent = GlobalVariables.Random.Next(0, population.Count - 1);
+
+                pop.Add(MakeChild(population[firstParent],population[secondParent]));
+            }
+
+            pop.ForEach(x => x.AfterGame = false);
+            MapEntirePopToPopDb(pop);
+        }
+
+        private Population MakeChild(PopulationDB firstParent, PopulationDB secondParent)
+        {
+            MaxIdObject++;
+            var newChlid = new Population(MaxIdObject, CrossOverParentsMovments(firstParent.AiMoves, secondParent.AiMoves),0, MaxPopGenerationNumber);
+
+            return newChlid;
+        }
+
+        private string CrossOverParentsMovments(string firstParentAiMoves, string secondParentAiMoves)
+        {
+            //todo
+            StringBuilder sb = new StringBuilder(1200);
+
+            for (int i = 0; i < 1200; i+=20)
+            {
+                sb.Append(firstParentAiMoves.Substring(i, 10));
+                sb.Append(secondParentAiMoves.Substring(i+10, 10));
+            }
+
+            return sb.ToString();
+        }
+
+        private List<Population> SelectionFromCurrentGeneration(int count)
+        {
+            var population = GetPopulationFromDb();
+            MaxIdObject = PopulationDB.GetMaxIdObject();
             MaxPopGenerationNumber++;
             Population.Clear();
-            int maxIdObject = PopulationDB.GetMaxIdObject() +1;
 
             for (int i = 0; i < count; i++)
             {
@@ -101,21 +139,17 @@ namespace GameRunningCube
 
                 if (population[firstPlayer].Score > population[secondPlayer].Score)
                 {
-                    population[firstPlayer].IdObject = maxIdObject;
-                    Population.Add(MapPopDbToPop(population[firstPlayer]));
-
+                    Population.Add(MapPopDbToPop(population[firstPlayer], MaxIdObject));
                 }
                 else
                 {
-                    population[firstPlayer].IdObject = maxIdObject;
-                    Population.Add(MapPopDbToPop(population[secondPlayer]));
+                    Population.Add(MapPopDbToPop(population[secondPlayer], MaxIdObject));
                 }
 
-                maxIdObject++;
+                MaxIdObject++;
             }
 
-            Population.ForEach(x => x.AfterGame = false);
-            MapEntirePopToPopDb(Population);
+            return Population;
         }
 
         private void MapEntirePopToPopDb(List<Population> population)
@@ -129,7 +163,6 @@ namespace GameRunningCube
                 dbContext.SaveChanges();
             }
         }
-
 
         private bool CheckIfStopAlgorithm()
         {
@@ -160,7 +193,7 @@ namespace GameRunningCube
         private void SetDefaultValues()
         {
             Player = new Player(new Vector2(300, 600), new Vector2(30, 30), "2D\\Player");
-            ScoreSprite = new ScoreSprite(Player);
+            ScoreSprite = new ScoreSprite(Player, MaxPopGenerationNumber);
             Enemies = GetEnemiesFromDb();
             Population = MapEntirePopDbToPop(GetPopulationFromDb());
             CurrentPopulation = Population.First(x => x.AfterGame == false);
@@ -174,7 +207,7 @@ namespace GameRunningCube
         private void GetNextPopulation()
         {
             Player = new Player(new Vector2(300, 600), new Vector2(30, 30), "2D\\Player");
-            ScoreSprite = new ScoreSprite(Player);
+            ScoreSprite = new ScoreSprite(Player,MaxPopGenerationNumber);
             Enemies = GetEnemiesFromDb();
             CurrentPopulation = Population.First(x => x.AfterGame == false);
         }
@@ -190,9 +223,9 @@ namespace GameRunningCube
             return populations;
         }
 
-        private Population MapPopDbToPop(PopulationDB pop)
+        private Population MapPopDbToPop(PopulationDB pop,int IdObj)
         {
-            return new Population(pop.IdObject,pop.AiMoves,  0, MaxPopGenerationNumber);
+            return new Population(IdObj, pop.AiMoves,  0, MaxPopGenerationNumber);
         }
 
         private List<PopulationDB> GetPopulationFromDb()

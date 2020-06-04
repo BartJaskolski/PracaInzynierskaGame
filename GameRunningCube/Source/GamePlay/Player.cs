@@ -42,29 +42,26 @@ namespace GameRunningCube.Source.GamePlay
         private void MoveAiPlayer()
         {
             int move = AiMoves[AiCounter];
-            AiCounter++;
-            
+
             //prawo
             if (move == 3)
-            {
-                Position = new Vector2(Position.X + 1, Position.Y);
-                Score -= 3;
-                MovesCount++;
-            }
-            //gora
-            if (move == 2)
-            {
-                Score += 10;
-                Position = new Vector2(Position.X, Position.Y - 1);
-                MovesCount++;
-            }
-            // lewo
+                 Position = new Vector2(Position.X + 1, Position.Y);
+            
+            //lewo
             if (move == 1)
-            {
                 Position = new Vector2(Position.X - 1, Position.Y);
-                Score -= 3;
-                MovesCount++;
-            }
+
+            AiCounter++;
+            Score -= 3;
+
+            //gora
+            //if (move == 2)
+            //{
+            //    Score += 10;
+            //    Position = new Vector2(Position.X, Position.Y - 1);
+            //    MovesCount++;
+            //}
+            // lewo
         }
 
         private void MovePlayer()

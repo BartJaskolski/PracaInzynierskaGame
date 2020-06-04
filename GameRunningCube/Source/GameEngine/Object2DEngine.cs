@@ -11,6 +11,8 @@ namespace GameRunningCube.Source.GameEngine
            board.Player.Lost = 
                IfObjectOutOfBoardGame(board.Player) &&
             IfObjectsColiding(board.Player, board.Enemies);
+
+           board.Update();
         }
 
         private bool IfObjectsColiding(Player boardPlayer, List<Enemy> boardEnemies)
