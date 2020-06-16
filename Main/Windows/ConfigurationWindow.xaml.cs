@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using GameRunningCube;
@@ -28,10 +29,27 @@ namespace Main.Views
         private void btn_generuj_Click(object sender, RoutedEventArgs e)
         {
             Enemies = new List<EnemyDB>();
-            for (int i = 0; i < 10; i++)
+            bool[,] field = new bool[30,60];
+            for (int i = -90; i < 28; i++)
             {
-                Enemies.Add(new EnemyDB(1,30,30, (int)GlobalVariables.Random.Next(0, 600), (int)GlobalVariables.Random.Next(0, 200)));
+
+                for (int j = 0; j < 3; j++)
+                {
+
+                    int generatedY = i;
+                    int genratedX = GlobalVariables.Random.Next(0, 30);
+                    Enemies.Add(new EnemyDB(1, 19, 19, genratedX * 20, generatedY * 20));
+
+                }
             }
+
+            //for (int i = 0; i < 40; i++)
+            //{
+            //    int generatedX = GlobalVariables.Random.Next(0, 30);
+            //    int genratedY = GlobalVariables.Random.Next(-30, 30);
+            //    field[generatedX,genratedY] = true;
+            //    Enemies.Add(new EnemyDB(1,19,19, generatedX * 20, genratedY * 20));
+            //}
 
             using (var db = new DbContextRunningCube())
             {
@@ -73,6 +91,18 @@ namespace Main.Views
             }
 
             return puplationMapped;
+        }
+
+        private void btn_clear_Click(object sender, RoutedEventArgs e)
+        {
+            using (var db = new DbContextRunningCube())
+            {
+                if (db.EnemiesData.Any())
+                {
+                    db.Database.ExecuteSqlCommand("TRUNCATE TABLE [EnemyDBs]");
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }

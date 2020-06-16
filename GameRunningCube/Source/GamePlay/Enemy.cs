@@ -16,7 +16,7 @@ namespace GameRunningCube.Source.GamePlay
 
         public override void Update()
         {
-            Position = new Vector2(Position.X, Position.Y+1);
+            Position = new Vector2(Position.X, Position.Y+20);
         }
 
         public override void Draw()

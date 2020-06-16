@@ -14,6 +14,8 @@ namespace GameRunningCube.DbContext.Entities
         public string AiMoves { get; set; }
         public int Score { get; set; }
         public int GenerationNumber { get; set; }
+        public int MovesCount { get; set; }
+        public bool Trained { get; set; }
 
         public PopulationDB(string aiMoves, int generationNumber, int score = 0)
         {
@@ -28,6 +30,7 @@ namespace GameRunningCube.DbContext.Entities
             AiMoves = string.Join(string.Empty, pop.AiMoves);
             Score = pop.Score;
             GenerationNumber = pop.GenerationNumber;
+            MovesCount = pop.MovesCount;
         }
 
         public PopulationDB()

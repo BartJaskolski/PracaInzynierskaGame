@@ -48,12 +48,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DbContext\DbContextRunningCube.cs" />
+    <Compile Include="DbContext\EnemyRepository.cs" />
     <Compile Include="DbContext\Entities\EnemyDb.cs" />
     <Compile Include="DbContext\Entities\PopulationDB.cs" />
+    <Compile Include="DbContext\PopulationRepository.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Migrations\202005271803409_Initial.cs" />
     <Compile Include="Migrations\202005271803409_Initial.designer.cs">
       <DependentUpon>202005271803409_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006131759292_movesCounter.cs" />
+    <Compile Include="Migrations\202006131759292_movesCounter.designer.cs">
+      <DependentUpon>202006131759292_movesCounter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006161500264_tested.cs" />
+    <Compile Include="Migrations\202006161500264_tested.designer.cs">
+      <DependentUpon>202006161500264_tested.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,8 +78,11 @@
     <Compile Include="Source\GameEngine\Input\KeyHandler.cs" />
     <Compile Include="Source\GameEngine\Objects2D.cs" />
     <Compile Include="Source\GamePlay\Player.cs" />
+    <Compile Include="Source\GeneticAlgorithm\GameGeneticAlgorithm.cs" />
     <Compile Include="Source\GeneticAlgorithm\Population.cs" />
     <Compile Include="Source\Helpers\ObjectGenerator.cs" />
+    <Compile Include="Source\Mappers\EnemyMapper.cs" />
+    <Compile Include="Source\Mappers\PopulationMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -107,6 +120,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005271803409_Initial.resx">
       <DependentUpon>202005271803409_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006131759292_movesCounter.resx">
+      <DependentUpon>202006131759292_movesCounter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006161500264_tested.resx">
+      <DependentUpon>202006161500264_tested.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

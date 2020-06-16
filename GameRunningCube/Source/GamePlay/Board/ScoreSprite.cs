@@ -5,20 +5,21 @@ namespace GameRunningCube
 {
     public class ScoreSprite : Objects2D
     {
-        public int score { get; set; } = 10000;
+        public int score { get; set; }
         public Player PlayerObj { get; set; }
         public int GenerationNumer { get; set; }
 
 
         public ScoreSprite(Player player, int generationNumer)
         {
+            score = 0;
             PlayerObj = player;
             GenerationNumer = generationNumer;
         }
         public override void Update()
         {
             score += PlayerObj.Score;
-            score -= 1;
+            score += 1;
             PlayerObj.Score = 0;
             base.Update();
         }

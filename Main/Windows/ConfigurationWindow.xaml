@@ -31,8 +31,13 @@
         <Label  Grid.Column ="1" Grid.Row="1" Content="Parameters"></Label>
         <TextBox Grid.Column ="1" Grid.Row="2"></TextBox>
         <Label  Grid.Column ="1" Grid.Row="3" Content="Parameters"></Label>
+       
         <Button x:Name="btn_gen_pop" Grid.Column ="1" Grid.Row="4" Click="btn_gen_pop_Click">Generate starting population</Button>
         <Label Name="lb_pop_gen"  Grid.Column ="1" Grid.Row="5" Content=""></Label>
+
+
+        <Button x:Name="btn_clear" Grid.Column ="3" Grid.Row="4" Click="btn_clear_Click" >Clear Enemies</Button>
+        <!--<Label Name="lb_pop_gen"  Grid.Column ="1" Grid.Row="5" Content=""></Label>-->
 
 </Grid>
 

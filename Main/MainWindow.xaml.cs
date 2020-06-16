@@ -45,5 +45,12 @@ namespace Main
             GameSettings = configurationWindow.GameSetting;
 
         }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            GameSettings.Tryb = GameMode.Test;
+            using (var game = new MainGame(GameSettings))
+                game.Run();
+        }
     }
 }

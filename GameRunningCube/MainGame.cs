@@ -15,14 +15,16 @@ namespace GameRunningCube
     {
         public GameBoard Board { get; set; }
         public Object2DEngine Object2DEngine { get; set; }
+        public GameSettings Settings { get; set; }
 
         public MainGame()
         {
             SetDefaultVariables();
         }
 
-        public MainGame(GameSettings gameSettings) 
+        public MainGame(GameSettings gameSettings)
         {
+            Settings = gameSettings;
             SetDefaultVariables();
         }
 
@@ -60,7 +62,7 @@ namespace GameRunningCube
 
             GlobalVariables.SpriteFont = Content.Load<SpriteFont>("FontArial");
 
-            Board = new GameBoard();
+            Board = new GameBoard(Settings);
             Object2DEngine = new Object2DEngine();
         }
 
@@ -88,7 +90,7 @@ namespace GameRunningCube
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 1000.0f);
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 10.0f);
             //TargetElapsedTime ?? change frequency of update 
             if (!Board.StopGame)
             { 
@@ -117,22 +119,5 @@ namespace GameRunningCube
             
             base.Draw(gameTime);
         }
-
-#if WINDOWS || LINUX
-        /// <summary>
-        /// The main class.
-        /// </summary>
-        public static class Program
-        {
-            /// <summary>
-            /// The main entry point for the application.
-            /// </summary>
-            static void Main()
-            {
-                using (var game = new MainGame())
-                    game.Run();
-            }
-        }
-#endif
     }
 }
