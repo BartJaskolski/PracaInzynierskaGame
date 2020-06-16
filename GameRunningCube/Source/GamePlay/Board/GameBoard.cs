@@ -41,20 +41,24 @@ namespace GameRunningCube
         public int MaxIdObject { get; set; }
 
         public int MaxPopGenerationNumber => PopulationRepository.MaxPopGenerationNumber;
-        public GameBoard(GameSettings settings)
+        public GameBoard(GameSettings settings) : this()
         {
-            EnemyMapper = new EnemyMapper();
-            EnemyRepository = new EnemyRepository(EnemyMapper);
-            PopulationMapper = new PopulationMapper();
-            PopulationRepository =new PopulationRepository();
-            GeneticAlgorithm = new GameGeneticAlgorithm(PopulationRepository, PopulationMapper);
-           
             if (settings.Tryb == GameMode.Test)
                 SetDefaultTest();
                 
             else
                 SetDefaultValues();
             
+        }
+
+        public GameBoard()
+        {
+            EnemyMapper = new EnemyMapper();
+            EnemyRepository = new EnemyRepository(EnemyMapper);
+            PopulationMapper = new PopulationMapper();
+            PopulationRepository = new PopulationRepository();
+            GeneticAlgorithm = new GameGeneticAlgorithm(PopulationRepository, PopulationMapper);
+
         }
 
         public virtual void Draw()
@@ -92,8 +96,6 @@ namespace GameRunningCube
                     GetNextPopulation(MaxPopGenerationNumber);
                 else
                 {
-
-                    //sprawdzenie czy dana populacja osiągneła cel.
                     if (CheckIfStopAlgorithm())
                     {
                         StopGame = true;
@@ -107,9 +109,6 @@ namespace GameRunningCube
                         GeneticAlgorithm.MutatePopulation(population);
                         GetNextPopulation(MaxPopGenerationNumber);
                     }
-                    //Populacja sprawdzona 
-                    //Operacje Krzyżownia i mutacji
-                    // utworzenie nowej populacji
                 }
             }
 
@@ -121,22 +120,11 @@ namespace GameRunningCube
                 enemy.Update();
         }
 
-        //private int CalculateFitness(Population currentPopulation, int scoreSpriteScore)
-        //{
-        //    // czas przy zyciu im minejszy tym lepiej 
-        //    scoreSpriteScore
-        //    // Mało ruchu to duzo punktów
-        //    // mało punkt
-        //    return 4;
-        //}
-
-      
 
         private bool CheckIfStopAlgorithm()
         {
             return false;
         }
-
 
 
         private void LoadAiData(Player player)
@@ -157,11 +145,6 @@ namespace GameRunningCube
             ScoreSprite = new ScoreSprite(Player, PopulationRepository.MaxPopGenerationNumber);
             Enemies = EnemyRepository.GetEnemiesFromDb();
             CurrentPopulation = Population.First(x => x.AfterGame == false);
-            //Enemies = new List<Enemy>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    Enemies.Add(GlobalVariables.ObjectGenerator.GenerateRandomObject<Enemy>("2D\\Enemy"));
-            //} 
         }
 
         private void SetDefaultTest()

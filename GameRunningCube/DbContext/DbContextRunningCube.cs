@@ -22,5 +22,9 @@ namespace GameRunningCube.DbContext
             get;
             set;
         }
+
+        public DbSet<ParametersDB> Parameters { get; set; }
     }
+
+  
 }

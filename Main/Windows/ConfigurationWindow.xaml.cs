@@ -8,6 +8,7 @@ using GameRunningCube.DbContext.Entities;
 using GameRunningCube.Source.GameEngine;
 using GameRunningCube.Source.GamePlay;
 using HelpersGRC;
+using Main.ViewModel;
 
 namespace Main.Views
 {
@@ -20,6 +21,7 @@ namespace Main.Views
         {
             InitializeComponent();
             NumberGenerator = new RandomNumber();
+            this.DataContext = new ConfigurationViewModel();
         }
 
         public List<EnemyDB> Enemies { get; set; }
@@ -32,10 +34,8 @@ namespace Main.Views
             bool[,] field = new bool[30,60];
             for (int i = -90; i < 28; i++)
             {
-
                 for (int j = 0; j < 3; j++)
                 {
-
                     int generatedY = i;
                     int genratedX = GlobalVariables.Random.Next(0, 30);
                     Enemies.Add(new EnemyDB(1, 19, 19, genratedX * 20, generatedY * 20));
@@ -58,40 +58,29 @@ namespace Main.Views
             }
         }
 
-        private void btn_gen_pop_Click(object sender, RoutedEventArgs e)
-        {
-            using (var db = new DbContextRunningCube())
-            {
-                if (!db.PopulationData.Any())
-                {
-                    db.PopulationData.AddRange(
-                        MapPlayersToPopulation(
-                            new PopulationGenerator().GeneratedPopulation));
-                    db.SaveChanges();
+        //private void btn_gen_pop_Click(object sender, RoutedEventArgs e)
+        //{
+        //    using (var db = new DbContextRunningCube())
+        //    {
+        //        if (!db.PopulationData.Any())
+        //        {
+        //            db.PopulationData.AddRange(
+        //                MapPlayersToPopulation(
+        //                    new PopulationGenerator().GeneratedPopulation));
+        //            db.SaveChanges();
 
-                    lb_pop_gen.Content = "Generated!";
-                }
-                else
-                {
-                    lb_pop_gen.Content = "Population 0 is already generated!";
-                }
-            }
+        //            lb_pop_gen.Content = "Generated!";
+        //        }
+        //        else
+        //        {
+        //            lb_pop_gen.Content = "Population 0 is already generated!";
+        //        }
+        //    }
             
-            //lb_pop_gen.Content += "Generated members: "+ GeneratedPopulation.Count()+"/r";
-        }
+        //    //lb_pop_gen.Content += "Generated members: "+ GeneratedPopulation.Count()+"/r";
+        //}
 
-        private IEnumerable<PopulationDB> MapPlayersToPopulation(List<Player> generatedPopulation)
-        {
-            var puplationMapped = new List<PopulationDB>();
-
-            foreach (var player in generatedPopulation)
-            {
-                var moves = string.Join(string.Empty, player.AiMoves);
-                puplationMapped.Add(new PopulationDB(moves, 0));
-            }
-
-            return puplationMapped;
-        }
+   
 
         private void btn_clear_Click(object sender, RoutedEventArgs e)
         {

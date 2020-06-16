@@ -50,6 +50,7 @@
     <Compile Include="DbContext\DbContextRunningCube.cs" />
     <Compile Include="DbContext\EnemyRepository.cs" />
     <Compile Include="DbContext\Entities\EnemyDb.cs" />
+    <Compile Include="DbContext\Entities\ParametersDB.cs" />
     <Compile Include="DbContext\Entities\PopulationDB.cs" />
     <Compile Include="DbContext\PopulationRepository.cs" />
     <Compile Include="MainGame.cs" />
@@ -64,6 +65,10 @@
     <Compile Include="Migrations\202006161500264_tested.cs" />
     <Compile Include="Migrations\202006161500264_tested.designer.cs">
       <DependentUpon>202006161500264_tested.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006161557519_addKey.cs" />
+    <Compile Include="Migrations\202006161557519_addKey.designer.cs">
+      <DependentUpon>202006161557519_addKey.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006161500264_tested.resx">
       <DependentUpon>202006161500264_tested.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006161557519_addKey.resx">
+      <DependentUpon>202006161557519_addKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

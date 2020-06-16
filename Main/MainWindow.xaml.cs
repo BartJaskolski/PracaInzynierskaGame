@@ -33,6 +33,7 @@ namespace Main
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
+            GameSettings.Tryb = GameMode.Genration;
             using (var game = new MainGame(GameSettings))
                 game.Run();
         }
@@ -43,7 +44,6 @@ namespace Main
             configurationWindow.ShowDialog();
 
             GameSettings = configurationWindow.GameSetting;
-
         }
 
         private void Test_Click(object sender, RoutedEventArgs e)

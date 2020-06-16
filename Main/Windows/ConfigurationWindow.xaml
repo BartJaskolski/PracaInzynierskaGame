@@ -12,7 +12,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="20"/> 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -20,23 +20,47 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
+
+        <!--kolumna 1-->
+
+        <Label  Grid.Column ="1" Grid.Row="1" Content="Speed Of the game"></Label>
+        <TextBox  Grid.Column ="1" Grid.Row="2" Text="{Binding SpeedOfGame}"></TextBox>
+
+        <Label  Grid.Column ="1" Grid.Row="3" Content="AmounOfPopulation"></Label>
+        <TextBox  Grid.Column ="1" Grid.Row="4" Text="{Binding AmounOfPopulation}"></TextBox>
+
+        <Label  Grid.Column ="1" Grid.Row="5" Content="MutationPercent"></Label>
+        <TextBox  Grid.Column ="1" Grid.Row="6" Text="{Binding MutationPercent}"></TextBox>
+
+        <Button Command="{Binding SaveParamaters}" Grid.Column ="1" Grid.Row="8" >Save Parameters</Button>
+
+
+        <Button x:Name="btn_gen_pop" Command="{Binding GenerateStatritngPopulation}" Grid.Column ="1" Grid.Row="11" >Generate starting population</Button>
+        <Label Name="lb_pop_gen"  Grid.Column ="1" Grid.Row="12" Content="{Binding LabelAfterGeneration}"></Label>
+
+
+
+        <!--kolumna 3-->
+
         <Label  Grid.Column ="3" Grid.Row="1" Content="Generate and Save Enemies to DB"></Label>
         <Button x:Name="btn_generuj" Grid.Column ="3" Grid.Row="2" Click="btn_generuj_Click">Generate</Button>
-        <Label x:Name="l_success"  Grid.Column ="3" Grid.Row="3" Content=""></Label>
-
-        <Label  Grid.Column ="1" Grid.Row="1" Content="Parameters"></Label>
-        <TextBox Grid.Column ="1" Grid.Row="2"></TextBox>
-        <Label  Grid.Column ="1" Grid.Row="3" Content="Parameters"></Label>
-       
-        <Button x:Name="btn_gen_pop" Grid.Column ="1" Grid.Row="4" Click="btn_gen_pop_Click">Generate starting population</Button>
-        <Label Name="lb_pop_gen"  Grid.Column ="1" Grid.Row="5" Content=""></Label>
-
-
+        <Label x:Name="l_success"  Grid.Column ="3" Grid.Row="3" Content="Delete all enemies from DB"></Label>
         <Button x:Name="btn_clear" Grid.Column ="3" Grid.Row="4" Click="btn_clear_Click" >Clear Enemies</Button>
+
+
+
         <!--<Label Name="lb_pop_gen"  Grid.Column ="1" Grid.Row="5" Content=""></Label>-->
 
 </Grid>
