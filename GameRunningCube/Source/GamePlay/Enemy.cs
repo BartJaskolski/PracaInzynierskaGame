@@ -23,7 +23,7 @@ namespace GameRunningCube.Source.GamePlay
         {
             if (Texture2D != null)
                 GlobalVariables.SpriteBatch.Draw(Texture2D, 
-                    new Rectangle(Location, Size), 
+                    new Rectangle(Location.X,Location.Y, Size.X,Size.Y), 
                     null, 
                     Color.Red,
                     0.0f, 

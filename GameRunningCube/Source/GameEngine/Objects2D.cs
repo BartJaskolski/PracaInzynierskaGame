@@ -52,7 +52,7 @@ namespace GameRunningCube
         public virtual void Draw()
         {
             if(Texture2D!=null)
-                GlobalVariables.SpriteBatch.Draw(Texture2D,new Rectangle(Location,Size),null, Color.Black, 0.0f, new Vector2(Texture2D.Bounds.Width/2,Texture2D.Bounds.Height/2),new SpriteEffects(), 0);
+                GlobalVariables.SpriteBatch.Draw(Texture2D, new Rectangle(Location.X, Location.Y, Size.X, Size.Y), null, Color.Black, 0.0f, new Vector2(Texture2D.Bounds.Width/2,Texture2D.Bounds.Height/2),new SpriteEffects(), 0);
         }
     }
 
