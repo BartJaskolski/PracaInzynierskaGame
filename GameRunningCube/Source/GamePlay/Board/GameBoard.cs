@@ -115,17 +115,14 @@ namespace GameRunningCube
             if (CurrentPopulation != null && !Player.LoadedAiData)
                 LoadAiData(Player);
 
-
             foreach (var enemy in Enemies)
                 enemy.Update();
         }
-
 
         private bool CheckIfStopAlgorithm()
         {
             return false;
         }
-
 
         private void LoadAiData(Player player)
         {

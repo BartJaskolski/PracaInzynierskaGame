@@ -44,7 +44,7 @@ namespace GameRunningCube
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            GlobalVariables.Graphics.PreferredBackBufferWidth = GlobalVariables.Graphics.PreferredBackBufferHeight = 600;
+            GlobalVariables.Graphics.PreferredBackBufferWidth = GlobalVariables.Graphics.PreferredBackBufferHeight = Settings.PreferredBackBufferWidth;
             GlobalVariables.Graphics.ApplyChanges();
             base.Initialize();
         }

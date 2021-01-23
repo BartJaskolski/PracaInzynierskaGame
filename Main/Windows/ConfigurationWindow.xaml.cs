@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using GameRunningCube;
 using GameRunningCube.DbContext;
 using GameRunningCube.DbContext.Entities;
 using GameRunningCube.Source.GameEngine;
-using GameRunningCube.Source.GamePlay;
 using HelpersGRC;
 using Main.ViewModel;
 
