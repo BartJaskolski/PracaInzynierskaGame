@@ -114,7 +114,6 @@ namespace GameRunningCube.Source.GeneticAlgorithm
             return pop;
         }
 
-
         public void MutatePopulation(List<Population> population)
         {
             int x = GlobalVariables.Random.Next();
@@ -169,7 +168,6 @@ namespace GameRunningCube.Source.GeneticAlgorithm
 
             PopulationMapper.MapEntirePopToPopDb(population);
         }
-
 
         private Population MakeChild(Population firstParent, Population secondParent)
         {

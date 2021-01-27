@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GameRunningCube.DbContext;
 using GameRunningCube.Source.GameEngine;
@@ -77,21 +78,24 @@ namespace GameRunningCube
             Player.Update();
             ScoreSprite.Update();
 
-            if (Player.AiCounter == 200 && !Player.Lost)
-            {
-                StopGame = true;
-                PopulationRepository.SaveTrainedPopulation(Player.AiCounter, CurrentPopulation.IdObject, ScoreSprite.score);
-            }
+            CheckIfCurrentPopulationWon();
 
+            CheckIfCurrentPopulationLost();
+            
+            if (CurrentPopulation != null && !Player.LoadedAiData)
+                LoadAiData(Player);
+
+            foreach (var enemy in Enemies)
+                enemy.Update();
+        }
+
+        private void CheckIfCurrentPopulationLost()
+        {
             if (Player.AiCounter == 200 || Player.Lost)
             {
-                var popAfterGame= Population.First(x => !CurrentPopulation.AfterGame  && x.IdObject == CurrentPopulation.IdObject && x.AfterGame== false);
-                popAfterGame.AfterGame = true;
-                popAfterGame.MovesCount = Player.AiCounter;
+                SaveResultForCurrentPopulationAfterLost();
 
-                PopulationRepository.UpdateScoreForCurrentPopulation(Player.AiCounter, CurrentPopulation.IdObject,ScoreSprite.score);
-
-                if(!AllPopulationAfterGame)
+                if (!AllPopulationAfterGame)
                     GetNextPopulation(MaxPopGenerationNumber);
                 else
                 {
@@ -101,21 +105,39 @@ namespace GameRunningCube
                     }
                     else
                     {
-                        int numberOfParents = Population.Count / 2;
-                        int numberOfChildren = Population.Count - numberOfParents;
-                        var population = GeneticAlgorithm.SelectionFromCurrentGeneration(numberOfParents, Population);
-                        GeneticAlgorithm.CrossOverPopulation(numberOfChildren, population);
-                        GeneticAlgorithm.MutatePopulation(population);
-                        GetNextPopulation(MaxPopGenerationNumber);
+                        InvoveGeneticAlgorithm();
                     }
                 }
             }
+        }
 
-            if (CurrentPopulation != null && !Player.LoadedAiData)
-                LoadAiData(Player);
+        private void InvoveGeneticAlgorithm()
+        {
+            int numberOfParents = Population.Count / 2;
+            int numberOfChildren = Population.Count - numberOfParents;
 
-            foreach (var enemy in Enemies)
-                enemy.Update();
+            var population = GeneticAlgorithm.SelectionFromCurrentGeneration(numberOfParents, Population);
+            GeneticAlgorithm.CrossOverPopulation(numberOfChildren, population);
+            GeneticAlgorithm.MutatePopulation(population);
+            GetNextPopulation(MaxPopGenerationNumber);
+        }
+
+        private void SaveResultForCurrentPopulationAfterLost()
+        {
+            var popAfterGame = Population.First(x => !CurrentPopulation.AfterGame && x.IdObject == CurrentPopulation.IdObject && x.AfterGame == false);
+            popAfterGame.AfterGame = true;
+            popAfterGame.MovesCount = Player.AiCounter;
+
+            PopulationRepository.UpdateScoreForCurrentPopulation(Player.AiCounter, CurrentPopulation.IdObject, ScoreSprite.score);
+        }
+
+        private void CheckIfCurrentPopulationWon()
+        {
+            if (Player.AiCounter == 200 && !Player.Lost)
+            {
+                StopGame = true;
+                PopulationRepository.SaveTrainedPopulation(Player.AiCounter, CurrentPopulation.IdObject, ScoreSprite.score);
+            }
         }
 
         private bool CheckIfStopAlgorithm()
@@ -137,8 +159,8 @@ namespace GameRunningCube
         private void SetDefaultValues()
         {
             Player = new Player(new Vector2(300, 600), new Vector2(19, 19), "2D\\Player");
-            Population = PopulationMapper.MapEntirePopDbToPop(PopulationRepository.GetPopulationFromDb());
             ScoreSprite = new ScoreSprite(Player, PopulationRepository.MaxPopGenerationNumber);
+            Population = PopulationMapper.MapEntirePopDbToPop(PopulationRepository.GetPopulationFromDb());
             Enemies = EnemyRepository.GetEnemiesFromDb();
             CurrentPopulation = Population.First(x => x.AfterGame == false);
         }
