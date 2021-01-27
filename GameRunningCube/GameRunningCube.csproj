@@ -47,7 +47,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DbContext\ConfigurationRepository.cs" />
+    <Compile Include="DbContext\ParametersRepository.cs" />
     <Compile Include="DbContext\DbContextRunningCube.cs" />
     <Compile Include="DbContext\EnemyRepository.cs" />
     <Compile Include="DbContext\Entities\EnemyDb.cs" />

@@ -90,7 +90,7 @@ namespace GameRunningCube
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 10.0f);
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / Settings.SzybkoscGry);
             //TargetElapsedTime ?? change frequency of update 
             if (!Board.StopGame)
             { 

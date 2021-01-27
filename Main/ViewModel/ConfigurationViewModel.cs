@@ -16,17 +16,14 @@ namespace Main.ViewModel
 {
     public class ConfigurationViewModel : INotifyPropertyChanged
     {
-        public ConfigurationRepository Configurationrepository { get; set; }
+        public ParametersRepository Configurationrepository { get; set; }
         public PopulationRepository PopulationRepository { get; set; }
 
-        public ConfigurationViewModel()
-        {
-            PopulationRepository = new PopulationRepository();
-            Configurationrepository = new ConfigurationRepository();
-        }
 
         public ConfigurationViewModel(GameSettings gameSetting) : base()
         {
+            PopulationRepository = new PopulationRepository();
+            Configurationrepository = new ParametersRepository();
             SpeedOfGame = gameSetting.SzybkoscGry.ToString();
             AmounOfPopulation = gameSetting.AmountOfPopulation.ToString();
             MutationPercent = gameSetting.MuationPercent.ToString();
@@ -78,7 +75,6 @@ namespace Main.ViewModel
             }
         }
 
-
         private string _amounOfPopulation;
         public string AmounOfPopulation
         {
@@ -94,7 +90,6 @@ namespace Main.ViewModel
         }
 
         private string _mutationPercent;
-
         public string MutationPercent 
         {
             get

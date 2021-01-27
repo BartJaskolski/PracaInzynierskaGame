@@ -5,10 +5,10 @@ using GameRunningCube.Source.GamePlay;
 
 namespace GameRunningCube.DbContext
 {
-    public class ConfigurationRepository
+    public class ParametersRepository
     {
 
-        public ConfigurationRepository()
+        public ParametersRepository()
         {
 
         }
@@ -27,8 +27,20 @@ namespace GameRunningCube.DbContext
         {
             using (var dbContext = new DbContextRunningCube())
             {
-                var parameters = dbContext.Parameters.FirstOrDefault();
-                return parameters;
+                var parameters = dbContext.Parameters.ToList();
+                return parameters.OrderByDescending(x=>x.IdObject).First();
+            }
+        }
+
+        public void ClearEnemies()
+        {
+            using (var db = new DbContextRunningCube())
+            {
+                if (db.Parameters.Any())
+                {
+                    db.Database.ExecuteSqlCommand("TRUNCATE TABLE [ParametersDBs]");
+                    db.SaveChanges();
+                }
             }
         }
     }

@@ -14,13 +14,13 @@ namespace Main
     public partial class MainWindow : Window
     {
         public GameSettings GameSettings { get; set; }
-        public ConfigurationRepository configurationRepository { get; set; }
+        public ParametersRepository configurationRepository { get; set; }
         public MainWindow()
         {
             GlobalVariables.Random = new Random(10);
             InitializeComponent();
             GameSettings = new GameSettings();
-            configurationRepository = new ConfigurationRepository();
+            configurationRepository = new ParametersRepository();
             GetConfiguration();
         }
 
