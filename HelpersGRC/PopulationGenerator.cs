@@ -6,7 +6,7 @@ namespace HelpersGRC
 
     public class PopulationGenerator
     {
-        public List<Player> GeneratedPopulation { get; set; }
+        public List<GameRunningCube.Source.GamePlay.Player> GeneratedPopulation { get; set; }
         private RandomNumber NumberGenerator { get; set; }
 
         public PopulationGenerator()
@@ -15,7 +15,7 @@ namespace HelpersGRC
             GeneratedPopulation = GeneratePopulation();
         }
 
-        private List<Player> GeneratePopulation()
+        private List<GameRunningCube.Source.GamePlay.Player> GeneratePopulation()
         {
             List<Player> populationPlayer = new List<Player>();
             for (int i = 0; i < 50; i++)

@@ -16,6 +16,11 @@ namespace GameRunningCube.DbContext.Entities
         public int AmountOfPopulation { get; set; }
         public double MutationPercent { get; set; }
 
+        public ParametersDB()
+        {
+
+        }
+
         public ParametersDB(double mutation, double speed, int amount)
         {
             SpeedOfAGame = speed;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GameRunningCube.DbContext.Entities;
+using GameRunningCube.Source.GamePlay;
 
 namespace GameRunningCube.DbContext
 {
@@ -8,6 +9,22 @@ namespace GameRunningCube.DbContext
     {
         public int MaxPopGenerationNumber { get; set; }
         public int MaxIdObject { get; set; } = 0;
+
+        public string GenerateStartPopulation(IEnumerable<PopulationDB> players)
+        {
+            var result = "Population 0 is already generated!";
+            using (var db = new DbContextRunningCube())
+            {
+                if (!db.PopulationData.Any())
+                {
+                    db.PopulationData.AddRange(players);
+                    db.SaveChanges();
+
+                    result = "Generated!";
+                }
+            }
+            return result;
+        }
 
         public List<PopulationDB> GetPopulationFromDb()
         {

@@ -5,6 +5,7 @@ using GameRunningCube;
 using GameRunningCube.DbContext;
 using GameRunningCube.DbContext.Entities;
 using GameRunningCube.Source.GameEngine;
+using GameRunningCube.Source.Mappers;
 using HelpersGRC;
 using Main.ViewModel;
 
@@ -15,21 +16,24 @@ namespace Main.Views
     /// </summary>
     public partial class ConfigurationWindow : Window
     {
-        public ConfigurationWindow()
+        public ConfigurationWindow(GameSettings gameSetting)
         {
             InitializeComponent();
+            GameSetting = gameSetting;
             NumberGenerator = new RandomNumber();
-            this.DataContext = new ConfigurationViewModel();
+            this.DataContext = new ConfigurationViewModel(GameSetting);
+            EnemyRepository = new EnemyRepository(new EnemyMapper());
         }
 
         public List<EnemyDB> Enemies { get; set; }
         public GameSettings GameSetting { get; set; }
         public RandomNumber NumberGenerator;
+        public EnemyRepository EnemyRepository { get; set; }
+
 
         private void btn_generuj_Click(object sender, RoutedEventArgs e)
         {
             Enemies = new List<EnemyDB>();
-            bool[,] field = new bool[30,60];
             for (int i = -90; i < 28; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -49,11 +53,8 @@ namespace Main.Views
             //    Enemies.Add(new EnemyDB(1,19,19, generatedX * 20, genratedY * 20));
             //}
 
-            using (var db = new DbContextRunningCube())
-            {
-                db.EnemiesData.AddRange(Enemies);
-                db.SaveChanges();
-            }
+            EnemyRepository.SaveGeneratedEnemies(Enemies);
+            lb_pop_gen.Content = "Generated!";
         }
 
         //private void btn_gen_pop_Click(object sender, RoutedEventArgs e)
@@ -82,14 +83,7 @@ namespace Main.Views
 
         private void btn_clear_Click(object sender, RoutedEventArgs e)
         {
-            using (var db = new DbContextRunningCube())
-            {
-                if (db.EnemiesData.Any())
-                {
-                    db.Database.ExecuteSqlCommand("TRUNCATE TABLE [EnemyDBs]");
-                    db.SaveChanges();
-                }
-            }
+            EnemyRepository.ClearEnemies();
         }
     }
 }

@@ -23,5 +23,27 @@ namespace GameRunningCube.DbContext
 
             return Mapper.MapDbToObj(enemyData);
         }
+
+        public void SaveGeneratedEnemies(List<EnemyDB> enemies) 
+        {
+
+            using (var db = new DbContextRunningCube())
+            {
+                db.EnemiesData.AddRange(enemies);
+                db.SaveChanges();
+            }
+        }
+
+        public void ClearEnemies()
+        {
+            using (var db = new DbContextRunningCube())
+            {
+                if (db.EnemiesData.Any())
+                {
+                    db.Database.ExecuteSqlCommand("TRUNCATE TABLE [EnemyDBs]");
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

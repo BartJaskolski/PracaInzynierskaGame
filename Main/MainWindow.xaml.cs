@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using GameRunningCube;
+using GameRunningCube.DbContext;
+using GameRunningCube.DbContext.Entities;
 using GameRunningCube.Source.GameEngine;
 using Main.Views;
 
@@ -24,11 +14,22 @@ namespace Main
     public partial class MainWindow : Window
     {
         public GameSettings GameSettings { get; set; }
+        public ConfigurationRepository configurationRepository { get; set; }
         public MainWindow()
         {
             GlobalVariables.Random = new Random(10);
             InitializeComponent();
             GameSettings = new GameSettings();
+            configurationRepository = new ConfigurationRepository();
+            GetConfiguration();
+        }
+
+        private void GetConfiguration()
+        {
+            ParametersDB parameters = configurationRepository.GetParameters();
+            GameSettings.AmountOfPopulation = parameters.AmountOfPopulation;
+            GameSettings.SzybkoscGry = parameters.SpeedOfAGame;
+            GameSettings.MuationPercent = parameters.MutationPercent;
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -40,7 +41,7 @@ namespace Main
 
         private void Configure_Click(object sender, RoutedEventArgs e)
         {
-            var configurationWindow = new ConfigurationWindow();
+            var configurationWindow = new ConfigurationWindow(GameSettings);
             configurationWindow.ShowDialog();
 
             GameSettings = configurationWindow.GameSetting;

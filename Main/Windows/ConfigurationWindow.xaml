@@ -5,29 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main.Views"
         mc:Ignorable="d"
-        Title="Configuration" Height="450" Width="800">
+        Title="Configuration" Height="287.6" Width="824">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/> 
+            <ColumnDefinition Width="220.8"/>
+            <ColumnDefinition Width="124"/>
+            <ColumnDefinition Width="12.8"/>
+            <ColumnDefinition  Width="250.8"/>
+            <ColumnDefinition Width="173.6"/>
+            <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
@@ -35,34 +33,30 @@
 
         <!--kolumna 1-->
 
-        <Label  Grid.Column ="1" Grid.Row="1" Content="Speed Of the game"></Label>
-        <TextBox  Grid.Column ="1" Grid.Row="2" Text="{Binding SpeedOfGame}"></TextBox>
+        <Label  Grid.Column ="1" Grid.Row="1" Content="Szybkość rozgrywki" Margin="0,0,5.8,0.4"></Label>
+        <TextBox  Grid.Column ="2" Grid.Row="1" Text="{Binding SpeedOfGame}" Margin="0.2,0,0.8,0.4"/>
 
-        <Label  Grid.Column ="1" Grid.Row="3" Content="AmounOfPopulation"></Label>
-        <TextBox  Grid.Column ="1" Grid.Row="4" Text="{Binding AmounOfPopulation}"></TextBox>
+        <Label  Grid.Column ="1" Grid.Row="3" Content="Wielkośc populacji" Margin="0,0.2,5.8,0.2"></Label>
+        <TextBox  Grid.Column ="2" Grid.Row="3" Text="{Binding AmounOfPopulation}" Margin="0.2,0.2,0.8,0.2"/>
 
-        <Label  Grid.Column ="1" Grid.Row="5" Content="MutationPercent"></Label>
-        <TextBox  Grid.Column ="1" Grid.Row="6" Text="{Binding MutationPercent}"></TextBox>
+        <Label  Grid.Column ="1" Grid.Row="5"  Content="Procent prawdopodobieństwa mutacji" Margin="0,0.4,5.8,29.4" Grid.RowSpan="2"></Label>
+        <TextBox  Grid.Column ="2" Grid.Row="5" Text="{Binding MutationPercent}" Margin="0.2,0.4,0.8,29.4" Grid.RowSpan="2"/>
 
-        <Button Command="{Binding SaveParamaters}" Grid.Column ="1" Grid.Row="8" >Save Parameters</Button>
+        <Button Command="{Binding SaveParamaters}" Grid.Column ="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Height="19" Width="90" Margin="15.2,6,18.8,5.4" >Save Parameters</Button>
 
-
-        <Button x:Name="btn_gen_pop" Command="{Binding GenerateStatritngPopulation}" Grid.Column ="1" Grid.Row="11" >Generate starting population</Button>
-        <Label Name="lb_pop_gen"  Grid.Column ="1" Grid.Row="12" Content="{Binding LabelAfterGeneration}"></Label>
-
-
+        <Button x:Name="btn_gen_pop" Command="{Binding GenerateStatritngPopulation}" Grid.Column ="5" Grid.Row="5" Margin="9.2,5.4,4.4,5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="20" >Generate starting population</Button>
+        <Label Name="lb_pop_gen"  Grid.Column ="4" Grid.Row="5" Content="{Binding LabelAfterGeneration}" Grid.ColumnSpan="2" Margin="11.4,0.4,121.4,29.4" Grid.RowSpan="2"></Label>
 
         <!--kolumna 3-->
 
-        <Label  Grid.Column ="3" Grid.Row="1" Content="Generate and Save Enemies to DB"></Label>
-        <Button x:Name="btn_generuj" Grid.Column ="3" Grid.Row="2" Click="btn_generuj_Click">Generate</Button>
-        <Label x:Name="l_success"  Grid.Column ="3" Grid.Row="3" Content="Delete all enemies from DB"></Label>
-        <Button x:Name="btn_clear" Grid.Column ="3" Grid.Row="4" Click="btn_clear_Click" >Clear Enemies</Button>
-
+        <Label  Grid.Column ="4" Grid.Row="1" Content="Wygeneruj i zapisz przeciwników w bazie" Grid.ColumnSpan="2" Margin="11.4,0,121.4,0.4"></Label>
+        <Button x:Name="btn_generuj" Grid.Column ="5" Grid.Row="1" Click="btn_generuj_Click" Margin="9.2,5,4.4,5.4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="20">Generate</Button>
+        <Label x:Name="l_success"  Grid.Column ="4" Grid.Row="3" Content="Usuń wszystkich przeciwników z bazy" Grid.ColumnSpan="2" Margin="11.4,0.2,121.4,0.2"></Label>
+        <Button x:Name="btn_clear" Grid.Column ="5" Grid.Row="3" Click="btn_clear_Click" Margin="9.2,5.2,4.4,5.2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="20" >Clear Enemies</Button>
 
 
         <!--<Label Name="lb_pop_gen"  Grid.Column ="1" Grid.Row="5" Content=""></Label>-->
 
-</Grid>
+    </Grid>
 
 </Window>

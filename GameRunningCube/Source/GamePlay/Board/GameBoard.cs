@@ -58,7 +58,6 @@ namespace GameRunningCube
             PopulationMapper = new PopulationMapper();
             PopulationRepository = new PopulationRepository();
             GeneticAlgorithm = new GameGeneticAlgorithm(PopulationRepository, PopulationMapper);
-
         }
 
         public virtual void Draw()

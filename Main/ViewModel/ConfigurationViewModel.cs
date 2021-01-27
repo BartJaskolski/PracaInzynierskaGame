@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using GameRunningCube.DbContext;
 using GameRunningCube.DbContext.Entities;
+using GameRunningCube.Source.GameEngine;
 using GameRunningCube.Source.GamePlay;
 using HelpersGRC;
 using Main.Annotations;
@@ -15,6 +16,22 @@ namespace Main.ViewModel
 {
     public class ConfigurationViewModel : INotifyPropertyChanged
     {
+        public ConfigurationRepository Configurationrepository { get; set; }
+        public PopulationRepository PopulationRepository { get; set; }
+
+        public ConfigurationViewModel()
+        {
+            PopulationRepository = new PopulationRepository();
+            Configurationrepository = new ConfigurationRepository();
+        }
+
+        public ConfigurationViewModel(GameSettings gameSetting) : base()
+        {
+            SpeedOfGame = gameSetting.SzybkoscGry.ToString();
+            AmounOfPopulation = gameSetting.AmountOfPopulation.ToString();
+            MutationPercent = gameSetting.MuationPercent.ToString();
+        }
+
         public double SpeedOfameDobule
         {
             get
@@ -107,6 +124,7 @@ namespace Main.ViewModel
         }
 
         private ICommand _saveParameters;
+
         public ICommand SaveParamaters
         {
             get
@@ -122,12 +140,7 @@ namespace Main.ViewModel
 
         private void SaveParameters()
         {
-            using (var db = new DbContextRunningCube())
-            {
-                db.Parameters.Add(new ParametersDB(double.Parse(MutationPercent), SpeedOfameDobule
-                    , AmountOfPop));
-                db.SaveChanges();
-            }
+            Configurationrepository.SaveParameters(double.Parse(MutationPercent), SpeedOfameDobule, AmountOfPop);
         }
 
         #endregion
@@ -135,22 +148,8 @@ namespace Main.ViewModel
 
         public void GenerateStartPopulation()
         {
-            using (var db = new DbContextRunningCube())
-            {
-                if (!db.PopulationData.Any())
-                {
-                    db.PopulationData.AddRange(
-                        MapPlayersToPopulation(
+            LabelAfterGeneration = PopulationRepository.GenerateStartPopulation(MapPlayersToPopulation(
                             new PopulationGenerator().GeneratedPopulation));
-                    db.SaveChanges();
-
-                    LabelAfterGeneration =  "Generated!";
-                }
-                else
-                {
-                    LabelAfterGeneration = "Population 0 is already generated!";
-                }
-            }
         }
 
         public bool CanGenerate()
@@ -158,7 +157,7 @@ namespace Main.ViewModel
             return true;
         }
 
-        private IEnumerable<PopulationDB> MapPlayersToPopulation(List<Player> generatedPopulation)
+        private IEnumerable<PopulationDB> MapPlayersToPopulation(List<GameRunningCube.Source.GamePlay.Player> generatedPopulation)
         {
             var puplationMapped = new List<PopulationDB>();
 
