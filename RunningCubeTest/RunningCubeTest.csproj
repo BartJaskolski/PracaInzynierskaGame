@@ -59,11 +59,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GeneticAlgorithmTest.cs" />
+    <Compile Include="UnitTests\GeneticAlgorithmTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DbIntergationTest.cs" />
-    <Compile Include="FileIntegrarionTest.cs" />
-    <Compile Include="Object2DTest.cs" />
+    <Compile Include="Integration\DbIntergationTest.cs" />
+    <Compile Include="Integration\FileIntegrationTest.cs" />
+    <Compile Include="UnitTests\Object2DTest.cs" />
+    <Compile Include="UnitTests\MappersTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

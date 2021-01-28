@@ -5,7 +5,7 @@ using System.IO;
 namespace RunningCubeTest
 {
     [TestClass]
-    public class FileIntegrarionTest
+    public class FileIntegrationTest
     {
         [TestMethod]
         public void IfContentFilesExists()

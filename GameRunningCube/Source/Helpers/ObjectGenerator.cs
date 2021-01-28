@@ -28,7 +28,7 @@ namespace GameRunningCube.Source.Helpers
             {
                 Dimention = dim,
                 Position = pos,
-                Texture2D = GlobalVariables.Content.Load<Texture2D>("2D\\Enemy")
+                Texture2D = GlobalVariables.Content!=null? GlobalVariables.Content.Load<Texture2D>("2D\\Enemy") : null
             };
 
             return obj;
