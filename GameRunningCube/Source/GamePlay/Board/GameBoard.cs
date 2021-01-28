@@ -34,6 +34,7 @@ namespace GameRunningCube
 
         public PopulationMapper PopulationMapper { get; set; }
         public EnemyMapper EnemyMapper { get; set; }
+        public GameSettings Settigns { get; set; }
 
         #endregion
 
@@ -44,6 +45,8 @@ namespace GameRunningCube
         public int MaxPopGenerationNumber => PopulationRepository.MaxPopGenerationNumber;
         public GameBoard(GameSettings settings) : this()
         {
+            Settigns = settings;
+            GeneticAlgorithm = new GameGeneticAlgorithm(PopulationRepository, PopulationMapper, Settigns);
             if (settings.Tryb == GameMode.Test)
                 SetDefaultTest();
                 
@@ -58,7 +61,6 @@ namespace GameRunningCube
             EnemyRepository = new EnemyRepository(EnemyMapper);
             PopulationMapper = new PopulationMapper();
             PopulationRepository = new PopulationRepository();
-            GeneticAlgorithm = new GameGeneticAlgorithm(PopulationRepository, PopulationMapper);
         }
 
         public virtual void Draw()
@@ -98,16 +100,7 @@ namespace GameRunningCube
                 if (!AllPopulationAfterGame)
                     GetNextPopulation(MaxPopGenerationNumber);
                 else
-                {
-                    if (CheckIfStopAlgorithm())
-                    {
-                        StopGame = true;
-                    }
-                    else
-                    {
-                        InvoveGeneticAlgorithm();
-                    }
-                }
+                    InvoveGeneticAlgorithm();
             }
         }
 
@@ -118,7 +111,8 @@ namespace GameRunningCube
 
             var population = GeneticAlgorithm.SelectionFromCurrentGeneration(numberOfParents, Population);
             GeneticAlgorithm.CrossOverPopulation(numberOfChildren, population);
-            GeneticAlgorithm.MutatePopulation(population);
+            population = GeneticAlgorithm.MutatePopulation(population);
+            GeneticAlgorithm.PopulationMapper.MapEntirePopToPopDb(population);
             GetNextPopulation(MaxPopGenerationNumber);
         }
 
@@ -171,7 +165,7 @@ namespace GameRunningCube
             ScoreSprite = new ScoreSprite(Player, 0);
             Population = PopulationMapper.MapEntirePopDbToPop(PopulationRepository.GetPopulationFromDb());
             Enemies = EnemyRepository.GetEnemiesFromDb();
-            CurrentPopulation =PopulationMapper.MapPopDbToPop(PopulationRepository.GetBestPopulation());
+            CurrentPopulation = PopulationMapper.MapPopDbToPop(PopulationRepository.GetBestPopulation());
         }
 
         private void GetNextPopulation(int maxPopGenerationNumber)

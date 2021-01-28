@@ -27,8 +27,12 @@ namespace GameRunningCube.DbContext
         {
             using (var dbContext = new DbContextRunningCube())
             {
-                var parameters = dbContext.Parameters.ToList();
-                return parameters.OrderByDescending(x=>x.IdObject).First();
+                if (dbContext.Parameters.Any())
+                {
+                    var parameters = dbContext.Parameters.ToList();
+                    return parameters.OrderByDescending(x => x.IdObject).First();
+                }
+                return new ParametersDB();
             }
         }
 

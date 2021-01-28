@@ -18,12 +18,13 @@ namespace Main.ViewModel
     {
         public ParametersRepository Configurationrepository { get; set; }
         public PopulationRepository PopulationRepository { get; set; }
-
+        public GameSettings settings { get; set; }
 
         public ConfigurationViewModel(GameSettings gameSetting) : base()
         {
             PopulationRepository = new PopulationRepository();
             Configurationrepository = new ParametersRepository();
+            settings = gameSetting;
             SpeedOfGame = gameSetting.SzybkoscGry.ToString();
             AmounOfPopulation = gameSetting.AmountOfPopulation.ToString();
             MutationPercent = gameSetting.MuationPercent.ToString();
@@ -33,7 +34,10 @@ namespace Main.ViewModel
         {
             get
             {
-                return !string.IsNullOrWhiteSpace(SpeedOfGame) ? double.Parse(SpeedOfGame) : 0;
+                double res=0;
+                if(!string.IsNullOrWhiteSpace(SpeedOfGame) && double.TryParse(SpeedOfGame, out res))
+                    return res;
+                return res;
             }
         }
 
@@ -41,7 +45,21 @@ namespace Main.ViewModel
         {
             get
             {
-                return !string.IsNullOrWhiteSpace(AmounOfPopulation)? int.Parse(AmounOfPopulation): 0;
+                int res = 0;
+                if (!string.IsNullOrWhiteSpace(AmounOfPopulation) && int.TryParse(AmounOfPopulation, out res))
+                    return res;
+                return res;
+            }
+        }
+
+        public double MutationPrecentDouble
+        {
+            get
+            {
+                double res = 0;
+                if (!string.IsNullOrWhiteSpace(MutationPercent) && double.TryParse(MutationPercent, out res))
+                    return res;
+                return res;
             }
         }
 
@@ -137,7 +155,12 @@ namespace Main.ViewModel
 
         private void SaveParameters()
         {
-            Configurationrepository.SaveParameters(double.Parse(MutationPercent), SpeedOfameDobule, AmountOfPop);
+            settings.AmountOfPopulation = AmountOfPop;
+            settings.SzybkoscGry = SpeedOfameDobule;
+            settings.MuationPercent = MutationPrecentDouble;
+
+
+            Configurationrepository.SaveParameters(MutationPrecentDouble, SpeedOfameDobule, AmountOfPop);
         }
 
         #endregion
@@ -146,12 +169,24 @@ namespace Main.ViewModel
         public void GenerateStartPopulation()
         {
             LabelAfterGeneration = PopulationRepository.GenerateStartPopulation(MapPlayersToPopulation(
-                            new PopulationGenerator().GeneratedPopulation));
+                            new PopulationGenerator(settings).GeneratedPopulation));
         }
 
         public bool CanGenerate()
         {
-            return PopulationRepository.CanGenerateStartingPopulation();
+            bool result = true;
+            if(settings.AmountOfPopulation == null || settings.AmountOfPopulation == 0)
+            {
+                LabelAfterGeneration = "Wielkośc populacji nie może być równa 0 ";
+                return false;
+
+            }
+            if (!PopulationRepository.CanGenerateStartingPopulation())
+            {
+                LabelAfterGeneration = "Populacja jest już wygenerowana";
+                return false;
+            }
+            return result;
         }
 
         private IEnumerable<PopulationDB> MapPlayersToPopulation(List<GameRunningCube.Source.GamePlay.Player> generatedPopulation)

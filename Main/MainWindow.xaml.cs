@@ -36,22 +36,40 @@ namespace Main
         {
             GameSettings.Tryb = GameMode.Genration;
             using (var game = new MainGame(GameSettings))
+            {
+                ChangeButtonsAccess();
                 game.Run();
+                ChangeButtonsAccess();
+            }
         }
 
         private void Configure_Click(object sender, RoutedEventArgs e)
         {
+            ChangeButtonsAccess();
             var configurationWindow = new ConfigurationWindow(GameSettings);
             configurationWindow.ShowDialog();
 
             GameSettings = configurationWindow.GameSetting;
+            ChangeButtonsAccess();
         }
 
         private void Test_Click(object sender, RoutedEventArgs e)
         {
             GameSettings.Tryb = GameMode.Test;
             using (var game = new MainGame(GameSettings))
+            {
+                ChangeButtonsAccess();
                 game.Run();
+                ChangeButtonsAccess();
+            }
+        }
+
+        private void ChangeButtonsAccess()
+        {
+
+            this.StartButton.IsEnabled = !this.StartButton.IsEnabled;
+            this.Configure.IsEnabled = !this.Configure.IsEnabled;
+            this.Test.IsEnabled = !this.Test.IsEnabled;
         }
     }
 }

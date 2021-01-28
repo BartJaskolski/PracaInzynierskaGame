@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameRunningCube.DbContext;
 using GameRunningCube.DbContext.Entities;
+using GameRunningCube.Source.GameEngine;
 using GameRunningCube.Source.Mappers;
 
 namespace GameRunningCube.Source.GeneticAlgorithm
@@ -12,12 +13,14 @@ namespace GameRunningCube.Source.GeneticAlgorithm
     public class GameGeneticAlgorithm
     {
 
-        public GameGeneticAlgorithm(PopulationRepository rep, PopulationMapper popMappper)
+        public GameGeneticAlgorithm(PopulationRepository rep, PopulationMapper popMappper, GameSettings settings)
         {
             Repository = rep;
             PopulationMapper = popMappper;
+            Settings = settings;
         }
 
+        public GameSettings Settings { get; set; }
         public PopulationRepository Repository { get; set; }
         public PopulationMapper PopulationMapper { get; set; }
         public List<PopulationDB> CurrentPop { get; set; }
@@ -113,16 +116,17 @@ namespace GameRunningCube.Source.GeneticAlgorithm
             return pop;
         }
 
-        public void MutatePopulation(List<Population> population)
+        public List<Population> MutatePopulation(List<Population> population)
         {
             int x = GlobalVariables.Random.Next();
             foreach (var pop in population)
             {
                 for (int i = 0; i < pop.AiMoves.Count/3; i++)
                 {
-                    x = GlobalVariables.Random.Next(pop.MovesCount, 200);
+                    x = GlobalVariables.Random.Next(pop.MovesCount, pop.AiMoves.Count);
                     var rand = GlobalVariables.Random.NextDouble();
-                    if (rand <= .05d)
+                    var mutationMercent = Settings.MuationPercent / 100;
+                    if (rand <= mutationMercent)
                     {
                         
                         int oldValue = pop.AiMoves[x];
@@ -164,11 +168,10 @@ namespace GameRunningCube.Source.GeneticAlgorithm
                     }
                 }
             }
-
-            PopulationMapper.MapEntirePopToPopDb(population);
+            return population;
         }
 
-        private Population MakeChild(Population firstParent, Population secondParent)
+        public Population MakeChild(Population firstParent, Population secondParent)
         {
             Repository.MaxIdObject++;
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameRunningCube.Source.GameEngine;
 using GameRunningCube.Source.GamePlay;
 
 namespace HelpersGRC
@@ -8,9 +9,11 @@ namespace HelpersGRC
     {
         public List<GameRunningCube.Source.GamePlay.Player> GeneratedPopulation { get; set; }
         private RandomNumber NumberGenerator { get; set; }
+        public GameSettings Settings { get; set; }
 
-        public PopulationGenerator()
+        public PopulationGenerator(GameSettings settings)
         {
+            Settings = settings;
             NumberGenerator = new RandomNumber();
             GeneratedPopulation = GeneratePopulation();
         }
@@ -18,7 +21,7 @@ namespace HelpersGRC
         private List<GameRunningCube.Source.GamePlay.Player> GeneratePopulation()
         {
             List<Player> populationPlayer = new List<Player>();
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < Settings.AmountOfPopulation; i++)
             {
                 var player = new Player();
                 player.AiMoves = NumberGenerator.GenerateMovesForPlayer();
