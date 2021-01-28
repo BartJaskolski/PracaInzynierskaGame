@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
 using GameRunningCube.Source.GamePlay;
 using Microsoft.Xna.Framework;
 
@@ -42,7 +41,7 @@ namespace GameRunningCube.Source.GameEngine
             return false;
         }
 
-        private bool IfTwoObjectsColiding(Enemy objects2D, Player player)
+        public bool IfTwoObjectsColiding(Enemy objects2D, Player player)
         {
             bool isColliding = IfColidingOnX(objects2D, player) && IfColidingOnY(objects2D, player);
             if (isColliding)

@@ -60,12 +60,10 @@ namespace RunningCubeTest
             pop2.ForEach(x => {
                 sum += x.Mutations;
             } );
-            int result = pop2.Count * pop.First().AiMoves.Count / 3;
+            int result = pop2.Count * (pop.First().AiMoves.Count / 3);
 
             Assert.IsNotNull(pop2[1]);
             Assert.AreEqual(sum, result);
-            Assert.AreNotEqual(pop[1], pop2[1]);
-
         }
 
     }

@@ -1,12 +1,11 @@
 ﻿using System.Data.Entity;
 using GameRunningCube.DbContext.Entities;
-using GameRunningCube.Source.GamePlay;
 
 namespace GameRunningCube.DbContext
 {
     public class DbContextRunningCube : System.Data.Entity.DbContext
     {
-        public DbContextRunningCube() : base("name=RunningCubeConn")
+        public DbContextRunningCube(string name = "name=RunningCubeConn") : base(name)
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<DbContextRunningCube>());
         }

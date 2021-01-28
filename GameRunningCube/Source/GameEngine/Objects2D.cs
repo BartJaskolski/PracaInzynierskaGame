@@ -41,7 +41,8 @@ namespace GameRunningCube
         {
             Position = position;
             Dimention = dimention;
-            Texture2D = GlobalVariables.Content.Load<Texture2D>(path);
+            if(GlobalVariables.Content != null)
+                Texture2D = GlobalVariables.Content.Load<Texture2D>(path);
         }
 
         public virtual void Update()
