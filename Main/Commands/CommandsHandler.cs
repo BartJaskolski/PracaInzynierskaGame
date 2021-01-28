@@ -11,6 +11,7 @@ namespace Main.Commands
     {
         private Action _methodToExecute;
         private Func<bool> _canExecute;
+        private bool CanExe { get; set; }
 
         public CommandsHandler(Action methodToExecute, Func<bool> canExecute)
         {
@@ -26,12 +27,14 @@ namespace Main.Commands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            CanExe = _canExecute();
+            return CanExe;
         }
 
         public void Execute(object parameter)
         {
-            _methodToExecute();
+            if(CanExe)
+                _methodToExecute();
         }
         
     }

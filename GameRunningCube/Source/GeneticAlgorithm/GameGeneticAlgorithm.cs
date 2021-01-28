@@ -98,7 +98,6 @@ namespace GameRunningCube.Source.GeneticAlgorithm
                 var secondPlayer = GlobalVariables.Random.Next(0, CurrentPop.Count);
 
 
-
                 if (CurrentPop[firstPlayer].Score > CurrentPop[secondPlayer].Score)
                 {
                     pop.Add(PopulationMapper.MapPopDbToPop(CurrentPop[firstPlayer], Repository.MaxIdObject, Repository.MaxPopGenerationNumber));

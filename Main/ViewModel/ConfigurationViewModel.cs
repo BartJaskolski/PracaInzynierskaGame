@@ -33,7 +33,7 @@ namespace Main.ViewModel
         {
             get
             {
-                return double.Parse(SpeedOfGame);
+                return !string.IsNullOrWhiteSpace(SpeedOfGame) ? double.Parse(SpeedOfGame) : 0;
             }
         }
 
@@ -41,7 +41,7 @@ namespace Main.ViewModel
         {
             get
             {
-                return int.Parse(AmounOfPopulation);
+                return !string.IsNullOrWhiteSpace(AmounOfPopulation)? int.Parse(AmounOfPopulation): 0;
             }
         }
 
@@ -130,6 +130,8 @@ namespace Main.ViewModel
 
         private bool CanSaveParameters()
         {
+            if (SpeedOfameDobule == null || AmountOfPop == null || MutationPercent == null)
+                return false;
             return !SpeedOfameDobule.Equals(0) && !AmountOfPop.Equals(0);
         }
 
@@ -149,7 +151,7 @@ namespace Main.ViewModel
 
         public bool CanGenerate()
         {
-            return true;
+            return PopulationRepository.CanGenerateStartingPopulation();
         }
 
         private IEnumerable<PopulationDB> MapPlayersToPopulation(List<GameRunningCube.Source.GamePlay.Player> generatedPopulation)

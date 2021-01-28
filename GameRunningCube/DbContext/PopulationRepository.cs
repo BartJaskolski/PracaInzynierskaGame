@@ -26,6 +26,14 @@ namespace GameRunningCube.DbContext
             return result;
         }
 
+        public bool CanGenerateStartingPopulation()
+        {
+            using (var db = new DbContextRunningCube())
+            {
+               return db.PopulationData.Any()? false : true;
+            }
+        }
+
         public List<PopulationDB> GetPopulationFromDb()
         {
             List<PopulationDB> pop = new List<PopulationDB>();
