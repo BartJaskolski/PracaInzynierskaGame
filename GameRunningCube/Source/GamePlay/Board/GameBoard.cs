@@ -93,7 +93,10 @@ namespace GameRunningCube
 
         private void CheckIfCurrentPopulationLost()
         {
-            if (Player.AiCounter == 200 || Player.Lost)
+            if (Player.Lost && Settigns.Tryb == GameMode.Test)
+                StopGame = true;
+
+            if (Player.AiCounter == 200 || Player.Lost && Settigns.Tryb != GameMode.Test)
             {
                 SaveResultForCurrentPopulationAfterLost();
 
@@ -165,7 +168,8 @@ namespace GameRunningCube
             ScoreSprite = new ScoreSprite(Player, 0);
             Population = PopulationMapper.MapEntirePopDbToPop(PopulationRepository.GetPopulationFromDb());
             Enemies = EnemyRepository.GetEnemiesFromDb();
-            CurrentPopulation = PopulationMapper.MapPopDbToPop(PopulationRepository.GetBestPopulation());
+            var best = PopulationRepository.GetBestPopulation();
+            CurrentPopulation = PopulationMapper.MapPopDbToPop(best,best.IdObject);
         }
 
         private void GetNextPopulation(int maxPopGenerationNumber)
