@@ -91,12 +91,21 @@ namespace GameRunningCube
                 enemy.Update();
         }
 
+        private void CheckIfCurrentPopulationWon()
+        {
+            if (Player.AiCounter == 200 && !Player.Lost)
+            {
+                StopGame = true;
+                PopulationRepository.SaveTrainedPopulation(Player.AiCounter, CurrentPopulation.IdObject, ScoreSprite.score);
+            }
+        }
+
         private void CheckIfCurrentPopulationLost()
         {
             if (Player.Lost && Settigns.Tryb == GameMode.Test)
                 StopGame = true;
 
-            if (Player.AiCounter == 200 || Player.Lost && Settigns.Tryb != GameMode.Test)
+            if (Player.Lost && Settigns.Tryb != GameMode.Test)
             {
                 SaveResultForCurrentPopulationAfterLost();
 
@@ -128,14 +137,6 @@ namespace GameRunningCube
             PopulationRepository.UpdateScoreForCurrentPopulation(Player.AiCounter, CurrentPopulation.IdObject, ScoreSprite.score);
         }
 
-        private void CheckIfCurrentPopulationWon()
-        {
-            if (Player.AiCounter == 200 && !Player.Lost)
-            {
-                StopGame = true;
-                PopulationRepository.SaveTrainedPopulation(Player.AiCounter, CurrentPopulation.IdObject, ScoreSprite.score);
-            }
-        }
 
         private bool CheckIfStopAlgorithm()
         {

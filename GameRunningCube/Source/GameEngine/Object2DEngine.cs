@@ -8,21 +8,11 @@ namespace GameRunningCube.Source.GameEngine
     public class Object2DEngine
     {
         //  ob i prze szereokosc 
+        private readonly int playerGoal = 200;
         public double PowerOfCollision { get; set; }
         public void Update(GameBoard board)
         {
-           board.Player.Lost = 
-               IfObjectOutOfBoardGame(board.Player) &&
-            IfObjectsColiding(board.Player, board.Enemies);
-
-           if (board.Player.AiCounter >= 108)
-           {
-
-               board.Player.Lost =
-                   IfObjectOutOfBoardGame(board.Player) &&
-                   IfObjectsColiding(board.Player, board.Enemies);
-            }
-
+           board.Player.Lost = IfObjectOutOfBoardGame(board.Player) && IfObjectsColiding(board.Player, board.Enemies);
            if (PowerOfCollision != 0)
            {
                board.Player.PowerOfCollision = PowerOfCollision;
@@ -34,10 +24,8 @@ namespace GameRunningCube.Source.GameEngine
         private bool IfObjectsColiding(Player boardPlayer, List<Enemy> boardEnemies)
         {
             foreach (var objects2D in boardEnemies)
-            {
-                if (IfTwoObjectsColiding(objects2D, boardPlayer))
-                    return true;
-            }
+                if (IfTwoObjectsColiding(objects2D, boardPlayer)) return true;
+
             return false;
         }
 
@@ -45,17 +33,14 @@ namespace GameRunningCube.Source.GameEngine
         {
             bool isColliding = IfColidingOnX(objects2D, player) && IfColidingOnY(objects2D, player);
             if (isColliding)
-            {
                 CalculeteCollidationPower(objects2D, player);
-            }
-
+            
             return isColliding;
         }
 
         private void CalculeteCollidationPower(Enemy objects2D, Player player)
         {
             double valueofColission = player.Size.X - Math.Abs(objects2D.Location.X - player.Location.X);
-         
             PowerOfCollision = valueofColission/ (double)player.Size.X;
         }
 

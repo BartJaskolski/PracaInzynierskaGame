@@ -30,7 +30,7 @@ namespace GameRunningCube.DbContext.Entities
             AiMoves = string.Join(string.Empty, pop.AiMoves);
             Score = pop.Score;
             GenerationNumber = pop.GenerationNumber;
-            MovesCount = pop.MovesCount;
+            MovesCount = 0;
         }
 
         public PopulationDB()

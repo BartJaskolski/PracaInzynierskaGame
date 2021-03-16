@@ -40,9 +40,7 @@ namespace GameRunningCube.Source.GeneticAlgorithm
 
         public string CrossOverParentsMovments(Population firstParentAiMoves, Population secondParentAiMoves)
         {
-            //todo
             StringBuilder sb = new StringBuilder(200);
-
             if (firstParentAiMoves.MovesCount <= secondParentAiMoves.MovesCount)
             {
                 sb.Append(secondParentAiMoves.AiMovesToStrong(secondParentAiMoves.AiMoves).Substring(0, secondParentAiMoves.MovesCount));
@@ -52,9 +50,7 @@ namespace GameRunningCube.Source.GeneticAlgorithm
             {
                 sb.Append(firstParentAiMoves.AiMovesToStrong(firstParentAiMoves.AiMoves).Substring(0, firstParentAiMoves.MovesCount));
                 sb.Append(secondParentAiMoves.AiMovesToStrong(secondParentAiMoves.AiMoves).Substring(firstParentAiMoves.MovesCount));
-
             }
-        
             return sb.ToString();
         }
 
@@ -64,7 +60,6 @@ namespace GameRunningCube.Source.GeneticAlgorithm
             Repository.MaxIdObject = PopulationDB.GetMaxIdObject();
             Repository.MaxPopGenerationNumber++;
             pop.Clear();
-
             var top = Repository.GetTopPopulationFromDb();
 
             foreach (var populationDb in top)
@@ -74,23 +69,15 @@ namespace GameRunningCube.Source.GeneticAlgorithm
                 count--;
             }
 
-
             for (int j = 0; j < count / 2; j++)
             {
                 var AllPop = Repository.GetAllPopulation();
-
                 var firstPlayer = GlobalVariables.Random.Next(0, AllPop.Count);
                 var secondPlayer = GlobalVariables.Random.Next(0, AllPop.Count);
-
-
                     if (AllPop[firstPlayer].Score > AllPop[secondPlayer].Score)
-                    {
                         pop.Add(PopulationMapper.MapPopDbToPop(AllPop[firstPlayer], Repository.MaxIdObject, Repository.MaxPopGenerationNumber));
-                    }
                     else
-                    {
                         pop.Add(PopulationMapper.MapPopDbToPop(AllPop[secondPlayer], Repository.MaxIdObject, Repository.MaxPopGenerationNumber));
-                    }
 
                 Repository.MaxIdObject++;
             }
@@ -99,72 +86,45 @@ namespace GameRunningCube.Source.GeneticAlgorithm
             {
                 var firstPlayer = GlobalVariables.Random.Next(0, CurrentPop.Count);
                 var secondPlayer = GlobalVariables.Random.Next(0, CurrentPop.Count);
-
-
                 if (CurrentPop[firstPlayer].Score > CurrentPop[secondPlayer].Score)
-                {
                     pop.Add(PopulationMapper.MapPopDbToPop(CurrentPop[firstPlayer], Repository.MaxIdObject, Repository.MaxPopGenerationNumber));
-                }
                 else
-                {
                     pop.Add(PopulationMapper.MapPopDbToPop(CurrentPop[secondPlayer], Repository.MaxIdObject, Repository.MaxPopGenerationNumber));
-                }
 
                 Repository.MaxIdObject++;
             }
-
             return pop;
         }
 
         public List<Population> MutatePopulation(List<Population> population)
         {
-            int x = GlobalVariables.Random.Next();
+            int chromosomeIndexToMutate = GlobalVariables.Random.Next();
             foreach (var pop in population)
             {
                 for (int i = 0; i < pop.AiMoves.Count/3; i++)
                 {
-                    x = GlobalVariables.Random.Next(pop.MovesCount, pop.AiMoves.Count);
+                    chromosomeIndexToMutate = GlobalVariables.Random.Next(pop.MovesCount, pop.AiMoves.Count);
                     var rand = GlobalVariables.Random.NextDouble();
                     var mutationMercent = Settings.MuationPercent / 100;
                     if (rand <= mutationMercent)
                     {
-                        
-                        int oldValue = pop.AiMoves[x];
-                        int newValue = 9;
-
+                        int oldValue = pop.AiMoves[chromosomeIndexToMutate];
+                        int newValue =0;
+                        double randomDouble = GlobalVariables.Random.NextDouble();
                         switch (oldValue)
                         {
                             case 1:
-                                {
-                                    double rand2 = GlobalVariables.Random.NextDouble();
-                                    if (rand2 <= .5d)
-                                        newValue = 2;
-                                    else
-                                        newValue = 3;
-                                }
+                                newValue  = (randomDouble <= .5d)? 2 : 3;
                                 break;
                             case 2:
-                                {
-                                    double rand2 = GlobalVariables.Random.NextDouble();
-                                    if (rand2 <= .5d)
-                                        newValue = 1;
-                                    else
-                                        newValue = 3;
-                                }
+                                newValue = (randomDouble <= .5d) ? 1 : 3;
                                 break;
                             case 3:
-                                {
-                                    double rand2 = GlobalVariables.Random.NextDouble();
-                                    if (rand2 <= .5d)
-                                        newValue = 2;
-                                    else
-                                        newValue = 1;
-                                }
+                                newValue = (randomDouble <= .5d) ? 2 : 1;
                                 break;
                         }
-
                         pop.Mutations++;
-                        pop.AiMoves[x] = newValue;
+                        pop.AiMoves[chromosomeIndexToMutate] = newValue;
                     }
                 }
             }
@@ -174,8 +134,8 @@ namespace GameRunningCube.Source.GeneticAlgorithm
         public Population MakeChild(Population firstParent, Population secondParent)
         {
             Repository.MaxIdObject++;
-
-            var newChlid = new Population(Repository.MaxIdObject, CrossOverParentsMovments(firstParent, secondParent), 0, Repository.MaxPopGenerationNumber, 0);
+            var newChlid = new Population(Repository.MaxIdObject, 
+                CrossOverParentsMovments(firstParent, secondParent), 0, Repository.MaxPopGenerationNumber, 0);
 
             return newChlid;
         }
