@@ -57,7 +57,14 @@ namespace GameRunningCube.DbContext
 
         public PopulationDB GetBestPopulation()
         {
-            return GetTopPopulationFromDb().OrderByDescending(x => x.Score).First();
+            PopulationDB xd;
+            using (var dbContext = new DbContextRunningCube())
+            {
+                var list= dbContext.PopulationData.OrderByDescending(x => x.MovesCount);
+                xd = list.FirstOrDefault();
+            }
+
+            return xd;
         }
 
         public List<PopulationDB> GetTopPopulationFromDb()

@@ -35,7 +35,7 @@ namespace Main.Views
             Enemies = new List<EnemyDB>();
             for (int i = -90; i < 28; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 2; j++)
                 {
                     int generatedY = i;
                     int genratedX = GlobalVariables.Random.Next(0, 30);

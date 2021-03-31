@@ -143,7 +143,6 @@
     <Content Include="Content\2D\Player.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Content\FontArial.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

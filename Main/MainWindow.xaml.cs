@@ -56,6 +56,7 @@ namespace Main
         private void Test_Click(object sender, RoutedEventArgs e)
         {
             GameSettings.Tryb = GameMode.Test;
+            GameSettings.SzybkoscGry = 20;
             using (var game = new MainGame(GameSettings))
             {
                 ChangeButtonsAccess();
